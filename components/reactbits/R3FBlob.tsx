@@ -185,6 +185,10 @@ function buildMushroomGeometry(): THREE.BufferGeometry {
 
 function buildClawGeometry(): THREE.BufferGeometry {
   class ClawCurve extends THREE.Curve<THREE.Vector3> {
+    constructor() {
+      super();
+    }
+
     getPoint(t: number): THREE.Vector3 {
       // Smooth arc: thick left → tapered right tip
       const eased = t * t * (3 - 2 * t); // smoothstep for nicer taper

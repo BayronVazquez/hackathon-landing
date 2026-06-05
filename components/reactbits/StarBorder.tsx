@@ -1,18 +1,15 @@
 import React from "react";
 import "./StarBorder.css";
 
-interface StarBorderProps {
-  as?: React.ElementType;
-  className?: string;
+interface StarBorderProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  as?: "button";
   color?: string;
   speed?: string;
   thickness?: number;
-  children: React.ReactNode;
-  [key: string]: unknown;
 }
 
 const StarBorder = ({
-  as: Component = "button",
+  as: _as = "button",
   className = "",
   color = "white",
   speed = "6s",
@@ -21,7 +18,7 @@ const StarBorder = ({
   ...rest
 }: StarBorderProps) => {
   return (
-    <Component className={`star-border-container ${className}`} {...rest}>
+    <button className={`star-border-container ${className}`} {...rest}>
       <div
         className="border-gradient-bottom"
         style={{
@@ -39,7 +36,7 @@ const StarBorder = ({
         }}
       />
       <div className="inner-content">{children}</div>
-    </Component>
+    </button>
   );
 };
 
