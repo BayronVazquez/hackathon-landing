@@ -1,19 +1,22 @@
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import { getDb } from "./firebase";
+
+export type WaitlistResult = {
+  alreadyRegistered: boolean;
+};
 
 function emailToDocId(email: string) {
   return email.toLowerCase().replace(/[^a-z0-9]/g, "_");
 }
 
-function firestoreErrorMessage(error: unknown) {
-  const code =
-    error && typeof error === "object" && "code" in error
-      ? String(error.code)
-      : "";
+function firestoreErrorCode(error: unknown) {
+  return error && typeof error === "object" && "code" in error
+    ? String(error.code)
+    : "";
+}
 
-  if (code === "permission-denied") {
-    return "Firestore blocked this signup. Publish the waitlist security rules in Firebase Console → Firestore → Rules.";
-  }
+function firestoreErrorMessage(error: unknown) {
+  const code = firestoreErrorCode(error);
 
   if (code === "not-found" || code === "failed-precondition") {
     return "Firestore is not set up yet. Create a Firestore database in Firebase Console first.";
@@ -26,7 +29,10 @@ function firestoreErrorMessage(error: unknown) {
   return "Something went wrong. Please try again.";
 }
 
-export async function joinWaitlist(name: string, email: string) {
+export async function joinWaitlist(
+  name: string,
+  email: string,
+): Promise<WaitlistResult> {
   const trimmedName = name.trim();
   const normalizedEmail = email.trim().toLowerCase();
 
@@ -39,13 +45,21 @@ export async function joinWaitlist(name: string, email: string) {
   }
 
   const db = getDb();
+  const docRef = doc(db, "waitlist", emailToDocId(normalizedEmail));
 
   try {
-    await setDoc(doc(db, "waitlist", emailToDocId(normalizedEmail)), {
+    const existing = await getDoc(docRef);
+    if (existing.exists()) {
+      return { alreadyRegistered: true };
+    }
+
+    await setDoc(docRef, {
       name: trimmedName,
       email: normalizedEmail,
       createdAt: serverTimestamp(),
     });
+
+    return { alreadyRegistered: false };
   } catch (error) {
     console.error("Firestore waitlist write failed:", error);
     throw new Error(firestoreErrorMessage(error));

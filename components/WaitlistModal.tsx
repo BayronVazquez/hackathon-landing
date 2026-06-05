@@ -26,6 +26,9 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState(
+    "We'll reach out when registration opens.",
+  );
 
   const backdropRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -139,6 +142,7 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
       setEmail("");
       setStatus("idle");
       setErrorMessage("");
+      setSuccessMessage("We'll reach out when registration opens.");
     }
   }, [open]);
 
@@ -176,7 +180,12 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
     setErrorMessage("");
 
     try {
-      await joinWaitlist(name, email);
+      const result = await joinWaitlist(name, email);
+      setSuccessMessage(
+        result.alreadyRegistered
+          ? "You're already signed up — we'll be in touch."
+          : "We'll reach out when registration opens.",
+      );
       setStatus("success");
     } catch (error) {
       setStatus("error");
@@ -240,7 +249,7 @@ export function WaitlistModal({ open, onClose }: WaitlistModalProps) {
             className="waitlist-success-item mt-3 text-white/70"
             style={{ fontFamily: outfit }}
           >
-            We&apos;ll reach out when registration opens.
+            {successMessage}
           </p>
           <button
             type="button"
