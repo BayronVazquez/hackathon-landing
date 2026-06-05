@@ -95,11 +95,12 @@ export default function AdminPage() {
 
         {!loading && !error && signups.length > 0 && (
           <div className="mt-8 overflow-x-auto rounded-2xl border border-white/10">
-            <table className="w-full min-w-[520px] text-left text-sm">
+            <table className="w-full min-w-[640px] text-left text-sm">
               <thead className="bg-white/[0.03] text-white/50">
                 <tr>
                   <th className="px-4 py-3 font-medium">Name</th>
                   <th className="px-4 py-3 font-medium">Email</th>
+                  <th className="px-4 py-3 font-medium">Phone</th>
                   <th className="px-4 py-3 font-medium">Signed up</th>
                 </tr>
               </thead>
@@ -114,6 +115,9 @@ export default function AdminPage() {
                     </td>
                     <td className="px-4 py-3" style={{ fontFamily: outfit }}>
                       {signup.email}
+                    </td>
+                    <td className="px-4 py-3" style={{ fontFamily: outfit }}>
+                      {signup.phone}
                     </td>
                     <td
                       className="px-4 py-3 text-white/50"

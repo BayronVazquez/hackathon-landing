@@ -2,11 +2,14 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /waitlist/{emailId} {
-      allow create: if request.resource.data.keys().hasAll(['name', 'email', 'createdAt'])
+      allow create: if request.resource.data.keys().hasAll(['name', 'email', 'phone', 'createdAt'])
                     && request.resource.data.name is string
                     && request.resource.data.name.size() >= 2
                     && request.resource.data.email is string
-                    && request.resource.data.email.matches('.*@.*\\..*');
+                    && request.resource.data.email.matches('.*@.*\\..*')
+                    && request.resource.data.phone is string
+                    && request.resource.data.phone.size() >= 10
+                    && request.resource.data.phone.size() <= 15;
       allow read: if true;
       allow update, delete: if false;
     }

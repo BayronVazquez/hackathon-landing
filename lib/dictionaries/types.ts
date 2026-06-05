@@ -80,7 +80,9 @@ export type Dictionary = {
     subtitle: string;
     name: string;
     email: string;
+    phone: string;
     namePlaceholder: string;
+    phonePlaceholder: string;
     join: string;
     joining: string;
     close: string;
@@ -90,6 +92,7 @@ export type Dictionary = {
     errors: {
       invalidName: string;
       invalidEmail: string;
+      invalidPhone: string;
       firestoreSetup: string;
       unavailable: string;
       generic: string;

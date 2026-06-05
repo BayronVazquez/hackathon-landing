@@ -15,10 +15,20 @@ export type WaitlistResult = {
 export type WaitlistErrorMessages = {
   invalidName: string;
   invalidEmail: string;
+  invalidPhone: string;
   firestoreSetup: string;
   unavailable: string;
   generic: string;
 };
+
+function normalizePhone(phone: string) {
+  return phone.replace(/\D/g, "");
+}
+
+function isValidPhone(phone: string) {
+  const digits = normalizePhone(phone);
+  return digits.length >= 10 && digits.length <= 15;
+}
 
 function emailToDocId(email: string) {
   return email.toLowerCase().replace(/[^a-z0-9]/g, "_");
@@ -56,10 +66,12 @@ export async function getWaitlistCount(): Promise<number> {
 export async function joinWaitlist(
   name: string,
   email: string,
+  phone: string,
   messages: WaitlistErrorMessages,
 ): Promise<WaitlistResult> {
   const trimmedName = name.trim();
   const normalizedEmail = email.trim().toLowerCase();
+  const normalizedPhone = normalizePhone(phone);
 
   if (trimmedName.length < 2) {
     throw new Error(messages.invalidName);
@@ -67,6 +79,10 @@ export async function joinWaitlist(
 
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
     throw new Error(messages.invalidEmail);
+  }
+
+  if (!isValidPhone(phone)) {
+    throw new Error(messages.invalidPhone);
   }
 
   const db = getDb();
@@ -81,6 +97,7 @@ export async function joinWaitlist(
     await setDoc(docRef, {
       name: trimmedName,
       email: normalizedEmail,
+      phone: normalizedPhone,
       createdAt: serverTimestamp(),
     });
 

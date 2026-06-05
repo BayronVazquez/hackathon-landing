@@ -31,6 +31,7 @@ export function WaitlistModal({ open, onClose, onSuccess }: WaitlistModalProps) 
   const [shouldRender, setShouldRender] = useState(open);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState(waitlist.successDefault);
@@ -145,6 +146,7 @@ export function WaitlistModal({ open, onClose, onSuccess }: WaitlistModalProps) 
     if (!open) {
       setName("");
       setEmail("");
+      setPhone("");
       setStatus("idle");
       setErrorMessage("");
       setSuccessMessage(waitlist.successDefault);
@@ -185,7 +187,7 @@ export function WaitlistModal({ open, onClose, onSuccess }: WaitlistModalProps) 
     setErrorMessage("");
 
     try {
-      const result = await joinWaitlist(name, email, waitlist.errors);
+      const result = await joinWaitlist(name, email, phone, waitlist.errors);
       setSuccessMessage(
         result.alreadyRegistered
           ? waitlist.successAlready
@@ -324,6 +326,27 @@ export function WaitlistModal({ open, onClose, onSuccess }: WaitlistModalProps) 
                 autoComplete="email"
                 className="waitlist-input w-full rounded-xl border border-white/12 bg-white/[0.04] px-4 py-3 text-white outline-none placeholder:text-white/25"
                 placeholder="you@example.com"
+                style={{ fontFamily: outfit }}
+              />
+            </label>
+
+            <label className="waitlist-field block">
+              <span
+                className="mb-2 block text-xs tracking-[0.3em] text-white/45"
+                style={{ fontFamily: outfit }}
+              >
+                {waitlist.phone}
+              </span>
+              <input
+                type="tel"
+                name="phone"
+                value={phone}
+                onChange={(event) => setPhone(event.target.value)}
+                required
+                autoComplete="tel"
+                inputMode="tel"
+                className="waitlist-input w-full rounded-xl border border-white/12 bg-white/[0.04] px-4 py-3 text-white outline-none placeholder:text-white/25"
+                placeholder={waitlist.phonePlaceholder}
                 style={{ fontFamily: outfit }}
               />
             </label>

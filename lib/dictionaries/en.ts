@@ -76,7 +76,7 @@ const dictionary: Dictionary = {
         step: "01",
         title: "Join the Waitlist",
         description:
-          "Sign up with your name and email. We'll notify you the moment registration opens and share event details.",
+          "Sign up with your name, email, and phone number. We'll notify you the moment registration opens and share event details.",
       },
       {
         step: "02",
@@ -154,7 +154,9 @@ const dictionary: Dictionary = {
     subtitle: "Be the first to know when registration opens.",
     name: "NAME",
     email: "EMAIL",
+    phone: "PHONE",
     namePlaceholder: "Your name",
+    phonePlaceholder: "+52 868 123 4567",
     join: "JOIN WAITLIST",
     joining: "JOINING...",
     close: "CLOSE",
@@ -164,6 +166,7 @@ const dictionary: Dictionary = {
     errors: {
       invalidName: "Please enter your name.",
       invalidEmail: "Please enter a valid email address.",
+      invalidPhone: "Please enter a valid phone number.",
       firestoreSetup:
         "Firestore is not set up yet. Create a Firestore database in Firebase Console first.",
       unavailable:
@@ -204,7 +207,7 @@ const dictionary: Dictionary = {
           blocks: [
             {
               type: "paragraph",
-              text: "Submitting your name and email to the waitlist does not guarantee a spot at the event. Registration details, including dates, venue, and capacity, will be communicated separately. You agree to provide accurate information and keep your contact details up to date.",
+              text: "Submitting your name, email, and phone number to the waitlist does not guarantee a spot at the event. Registration details, including dates, venue, and capacity, will be communicated separately. You agree to provide accurate information and keep your contact details up to date.",
             },
           ],
         },
@@ -295,6 +298,7 @@ const dictionary: Dictionary = {
               items: [
                 "Your name",
                 "Your email address",
+                "Your phone number",
                 "The date and time of your signup",
               ],
             },

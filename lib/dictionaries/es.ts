@@ -76,7 +76,7 @@ const dictionary: Dictionary = {
         step: "01",
         title: "Únete a la Lista de Espera",
         description:
-          "Regístrate con tu nombre y correo. Te avisamos en cuanto abra el registro y compartimos los detalles del evento.",
+          "Regístrate con tu nombre, correo y número de teléfono. Te avisamos en cuanto abra el registro y compartimos los detalles del evento.",
       },
       {
         step: "02",
@@ -154,7 +154,9 @@ const dictionary: Dictionary = {
     subtitle: "Sé el primero en saber cuando abra el registro.",
     name: "NOMBRE",
     email: "CORREO",
+    phone: "TELÉFONO",
     namePlaceholder: "Tu nombre",
+    phonePlaceholder: "+52 868 123 4567",
     join: "UNIRME A LA LISTA",
     joining: "REGISTRANDO...",
     close: "CERRAR",
@@ -164,6 +166,7 @@ const dictionary: Dictionary = {
     errors: {
       invalidName: "Por favor ingresa tu nombre.",
       invalidEmail: "Por favor ingresa un correo válido.",
+      invalidPhone: "Por favor ingresa un número de teléfono válido.",
       firestoreSetup:
         "Firestore aún no está configurado. Crea una base de datos en Firebase Console primero.",
       unavailable:
@@ -204,7 +207,7 @@ const dictionary: Dictionary = {
           blocks: [
             {
               type: "paragraph",
-              text: "Enviar tu nombre y correo a la lista de espera no garantiza un lugar en el evento. Los detalles de registro, incluyendo fechas, sede y capacidad, se comunicarán por separado. Aceptas proporcionar información veraz y mantener tus datos de contacto actualizados.",
+              text: "Enviar tu nombre, correo y número de teléfono a la lista de espera no garantiza un lugar en el evento. Los detalles de registro, incluyendo fechas, sede y capacidad, se comunicarán por separado. Aceptas proporcionar información veraz y mantener tus datos de contacto actualizados.",
             },
           ],
         },
@@ -295,6 +298,7 @@ const dictionary: Dictionary = {
               items: [
                 "Tu nombre",
                 "Tu correo electrónico",
+                "Tu número de teléfono",
                 "La fecha y hora de tu registro",
               ],
             },

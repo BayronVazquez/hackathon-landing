@@ -5,6 +5,7 @@ export type WaitlistSignup = {
   id: string;
   name: string;
   email: string;
+  phone: string;
   createdAt: Date | null;
 };
 
@@ -20,6 +21,7 @@ export async function getWaitlistSignups(): Promise<WaitlistSignup[]> {
       id: doc.id,
       name: data.name as string,
       email: data.email as string,
+      phone: (data.phone as string | undefined) ?? "—",
       createdAt: data.createdAt?.toDate?.() ?? null,
     };
   });
