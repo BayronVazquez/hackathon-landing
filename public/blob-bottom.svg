@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 340" width="300" height="340">
+  <!-- Mushroom / teardrop shape  wider cap on top, pinched waist, round bottom tip -->
+  <path
+    d="M 50 80
+       C 60 20, 140 0, 200 30
+       C 260 60, 280 130, 255 180
+       C 235 220, 190 240, 180 270
+       C 170 300, 165 330, 150 335
+       C 135 340, 130 310, 120 280
+       C 108 248, 65 225, 45 185
+       C 20 140, 40 140, 50 80 Z"
+    fill="black"
+  />
+</svg>

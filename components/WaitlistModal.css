@@ -1,0 +1,87 @@
+.waitlist-backdrop {
+  opacity: 0;
+}
+
+.waitlist-panel {
+  opacity: 0;
+  transform: translateY(28px) scale(0.96);
+}
+
+.waitlist-panel-glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(170, 255, 0, 0.35),
+    transparent 40%,
+    transparent 60%,
+    rgba(170, 255, 0, 0.2)
+  );
+  opacity: 0.6;
+  animation: waitlist-border-shimmer 4s ease-in-out infinite;
+}
+
+@keyframes waitlist-border-shimmer {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}
+
+.waitlist-line {
+  transform: scaleX(0);
+  transform-origin: center;
+}
+
+.waitlist-field {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.waitlist-success-star {
+  animation: waitlist-star-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes waitlist-star-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.88);
+  }
+}
+
+.waitlist-input {
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.waitlist-input:focus {
+  box-shadow: 0 0 0 1px rgba(170, 255, 0, 0.25), 0 0 24px rgba(170, 255, 0, 0.08);
+  background-color: rgba(170, 255, 0, 0.04);
+}
+
+.waitlist-error {
+  animation: waitlist-error-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes waitlist-error-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
