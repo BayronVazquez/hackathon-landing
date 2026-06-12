@@ -29,6 +29,7 @@ export type Dictionary = {
   about: {
     label: string;
     title: string;
+    accentWord: string;
     subtitle: string;
     whatIsIt: string;
     whatIsItBody: string;
@@ -44,9 +45,13 @@ export type Dictionary = {
   highlights: {
     label: string;
     title: string;
+    accentWord: string;
     subtitle: string;
+    featuredCta: string;
+    learnMoreCta: string;
     items: Array<{
       id: "ship" | "crew" | "learn" | "win";
+      tag: string;
       title: string;
       description: string;
     }>;
@@ -54,12 +59,14 @@ export type Dictionary = {
   howItWorks: {
     label: string;
     title: string;
+    accentWord: string;
     subtitle: string;
     steps: Array<{ step: string; title: string; description: string }>;
   };
   faq: {
     label: string;
     title: string;
+    accentWord: string;
     subtitle: string;
     items: Array<{ question: string; answer: string }>;
   };
@@ -68,12 +75,36 @@ export type Dictionary = {
     title: string;
     subtitle: string;
     button: string;
+    urgencyBadge: string;
+    socialProof: string;
+    footnote: string;
+  };
+  perks: {
+    label: string;
+    title: string;
+    accentWord: string;
+    subtitle: string;
+    featuredNote: string;
+    bottomCallout: string;
+    items: Array<{
+      id: "food" | "wifi" | "mentors" | "workshops" | "teams" | "demo" | "community" | "swag";
+      title: string;
+      body: string;
+    }>;
+  };
+  ticker: {
+    items: string[];
   };
   footer: {
     terms: string;
     privacy: string;
     contact: string;
+    sponsor: string;
     copyright: string;
+    eventHeading: string;
+    legalHeading: string;
+    rightsReserved: string;
+    locationTag: string;
   };
   waitlist: {
     title: string;
@@ -81,8 +112,25 @@ export type Dictionary = {
     name: string;
     email: string;
     phone: string;
+    age: string;
+    sex: string;
+    school: string;
+    github: string;
+    interests: string;
+    optional: string;
     namePlaceholder: string;
     phonePlaceholder: string;
+    agePlaceholder: string;
+    schoolPlaceholder: string;
+    githubPlaceholder: string;
+    interestsPlaceholder: string;
+    sexOptions: {
+      male: string;
+      female: string;
+      other: string;
+      preferNotToSay: string;
+    };
+    sexPlaceholder: string;
     join: string;
     joining: string;
     close: string;
@@ -93,6 +141,48 @@ export type Dictionary = {
       invalidName: string;
       invalidEmail: string;
       invalidPhone: string;
+      invalidAge: string;
+      invalidSex: string;
+      invalidGithub: string;
+      firestoreSetup: string;
+      unavailable: string;
+      generic: string;
+    };
+  };
+  sponsor: {
+    title: string;
+    subtitle: string;
+    name: string;
+    email: string;
+    phone: string;
+    company: string;
+    sponsorship: string;
+    problem: string;
+    workshop: string;
+    namePlaceholder: string;
+    phonePlaceholder: string;
+    companyPlaceholder: string;
+    sponsorshipPlaceholder: string;
+    problemPlaceholder: string;
+    workshopOptions: {
+      yes: string;
+      no: string;
+    };
+    workshopPlaceholder: string;
+    submit: string;
+    submitting: string;
+    close: string;
+    successTitle: string;
+    successDefault: string;
+    successAlready: string;
+    errors: {
+      invalidName: string;
+      invalidEmail: string;
+      invalidPhone: string;
+      invalidCompany: string;
+      invalidSponsorship: string;
+      invalidProblem: string;
+      invalidWorkshop: string;
       firestoreSetup: string;
       unavailable: string;
       generic: string;

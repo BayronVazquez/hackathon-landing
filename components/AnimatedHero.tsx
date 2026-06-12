@@ -14,17 +14,20 @@ import R3FBlob from "./reactbits/R3FBlob";
 
 type AnimatedHeroProps = {
   onRegisterClick: () => void;
+  /** When true the entrance animation plays. Defaults to true (no splash). */
+  ready?: boolean;
 };
 
 /* ─────────────────────────────────────────────────────────────────────────
    AnimatedHero
    ───────────────────────────────────────────────────────────────────────── */
-export function AnimatedHero({ onRegisterClick }: AnimatedHeroProps) {
+export function AnimatedHero({ onRegisterClick, ready = true }: AnimatedHeroProps) {
   const dictionary = useDictionary();
   const isMobile = useIsMobile();
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!ready) return;
     if (prefersReducedMotion()) return;
 
     const root = rootRef.current;
@@ -89,7 +92,7 @@ export function AnimatedHero({ onRegisterClick }: AnimatedHeroProps) {
     }, root);
 
     return () => ctx.revert();
-  }, [isMobile]);
+  }, [isMobile, ready]);
 
   return (
     <div

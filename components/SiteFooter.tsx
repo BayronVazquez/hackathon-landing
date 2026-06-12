@@ -1,73 +1,142 @@
 "use client";
 
+import { motion } from "motion/react";
 import Link from "next/link";
 import { useDictionary, useLocale } from "@/components/LocaleProvider";
 import { localizedPath } from "@/lib/i18n";
 import { montserrat, outfit } from "@/lib/theme";
 
-export function SiteFooter() {
+type SiteFooterProps = {
+  onSponsorClick?: () => void;
+};
+
+export function SiteFooter({ onSponsorClick }: SiteFooterProps) {
   const { locale } = useLocale();
   const dictionary = useDictionary();
   const year = new Date().getFullYear();
 
+  const eventLinks = [
+    { href: "#about", label: dictionary.nav.about },
+    { href: "#highlights", label: dictionary.nav.whyJoin },
+    { href: "#how-it-works", label: dictionary.nav.howItWorks },
+    { href: "#faq", label: dictionary.nav.faq },
+  ];
+
+  const navLinks = [
+    { href: localizedPath(locale, "/terms"), label: dictionary.footer.terms, isLink: true },
+    { href: localizedPath(locale, "/privacy"), label: dictionary.footer.privacy, isLink: true },
+    { href: "mailto:hello@buildpalnorte.com", label: dictionary.footer.contact, isLink: false },
+  ];
+
   return (
-    <footer className="relative border-t border-[#aaff00]/15 bg-black px-4 py-12 sm:px-6 sm:py-14">
-      <div className="mx-auto flex max-w-5xl flex-col items-center gap-8 text-center">
-        <p
-          className="text-xl font-black tracking-tight text-white sm:text-2xl"
-          style={{ fontFamily: montserrat }}
-        >
-          Build Pa&apos;l Norte
-        </p>
+    <footer className="relative overflow-hidden border-t border-[#aaff00]/15 bg-black px-4 py-12 sm:px-6 sm:py-14">
+      {/* Grid background */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.035]"
+        style={{
+          backgroundImage: "linear-gradient(rgba(170,255,0,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(170,255,0,0.5) 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+        }}
+      />
+      {/* Top gradient fade */}
+      <div className="pointer-events-none absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black to-transparent" />
+      {/* Center glow */}
+      <div className="pointer-events-none absolute bottom-0 left-1/2 h-40 w-96 -translate-x-1/2 rounded-full bg-[#aaff00]/6 blur-[60px]" />
 
-        <nav
-          className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm tracking-[0.2em] text-white/50"
-          style={{ fontFamily: outfit }}
-          aria-label="Footer"
+      <div className="relative mx-auto max-w-5xl">
+        {/* Top row — brand + columns */}
+        <motion.div
+          className="grid gap-10 sm:grid-cols-2 md:grid-cols-4"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
         >
-          <Link
-            href={localizedPath(locale, "/terms")}
-            className="transition-colors hover:text-[#aaff00]"
-          >
-            {dictionary.footer.terms}
-          </Link>
-          <Link
-            href={localizedPath(locale, "/privacy")}
-            className="transition-colors hover:text-[#aaff00]"
-          >
-            {dictionary.footer.privacy}
-          </Link>
-          <a
-            href="mailto:hello@buildpalnorte.com"
-            className="transition-colors hover:text-[#aaff00]"
-          >
-            {dictionary.footer.contact}
-          </a>
-        </nav>
+          {/* Brand */}
+          <div className="md:col-span-2">
+            <div className="flex items-center gap-2.5">
+              <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true" className="shrink-0 drop-shadow-[0_0_10px_rgba(170,255,0,0.4)]">
+                <rect width="32" height="32" rx="6" fill="#000" />
+                <polygon points="16,5 27,11 16,17 5,11" fill="#aaff00" />
+                <polygon points="5,11 16,17 16,27 5,21" fill="#55aa00" />
+                <polygon points="27,11 16,17 16,27 27,21" fill="#77cc00" />
+              </svg>
+              <p className="text-base font-black tracking-tight text-white" style={{ fontFamily: montserrat }}>
+                Build Pa&apos;l Norte
+              </p>
+            </div>
+            <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/40" style={{ fontFamily: outfit }}>
+              {dictionary.footer.copyright}
+            </p>
+            <a
+              href="mailto:hello@buildpalnorte.com"
+              className="mt-4 inline-block text-xs tracking-wide text-[#aaff00]/60 transition-colors hover:text-[#aaff00]"
+              style={{ fontFamily: outfit }}
+            >
+              hello@buildpalnorte.com
+            </a>
+          </div>
 
-        <div className="flex w-full max-w-xs items-center gap-4">
-          <div className="h-px flex-1 bg-[#aaff00]/30" />
-          <svg
-            width="10"
-            height="10"
-            viewBox="-12 -12 24 24"
-            className="text-[#aaff00]/60"
-            aria-hidden="true"
-          >
-            <path
-              d="M0,-12 L1.5,-1.5 L12,0 L1.5,1.5 L0,12 L-1.5,1.5 L-12,0 L-1.5,-1.5 Z"
-              fill="currentColor"
-            />
-          </svg>
-          <div className="h-px flex-1 bg-[#aaff00]/30" />
-        </div>
+          {/* Event links */}
+          <div>
+            <p className="mb-4 text-[10px] font-black tracking-[0.3em] text-white/30" style={{ fontFamily: montserrat }}>
+              {dictionary.footer.eventHeading}
+            </p>
+            <nav className="flex flex-col gap-2.5" aria-label="Footer event">
+              {eventLinks.map((link) => (
+                <a key={link.href} href={link.href} className="text-sm text-white/50 transition-colors hover:text-[#aaff00]" style={{ fontFamily: outfit }}>
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          </div>
 
-        <p
-          className="text-xs tracking-wide text-white/35"
-          style={{ fontFamily: outfit }}
+          {/* Legal + sponsor */}
+          <div>
+            <p className="mb-4 text-[10px] font-black tracking-[0.3em] text-white/30" style={{ fontFamily: montserrat }}>
+              {dictionary.footer.legalHeading}
+            </p>
+            <nav className="flex flex-col gap-2.5" aria-label="Footer legal">
+              {navLinks.map((item) =>
+                item.isLink ? (
+                  <Link key={item.href} href={item.href} className="text-sm text-white/50 transition-colors hover:text-[#aaff00]" style={{ fontFamily: outfit }}>
+                    {item.label}
+                  </Link>
+                ) : null
+              )}
+              {onSponsorClick && (
+                <button type="button" onClick={onSponsorClick} className="text-left text-sm text-white/50 transition-colors hover:text-[#aaff00]" style={{ fontFamily: outfit }}>
+                  {dictionary.footer.sponsor}
+                </button>
+              )}
+            </nav>
+          </div>
+        </motion.div>
+
+        {/* Divider */}
+        <motion.div
+          className="my-8 h-px w-full bg-gradient-to-r from-transparent via-[#aaff00]/20 to-transparent"
+          initial={{ scaleX: 0, opacity: 0 }}
+          whileInView={{ scaleX: 1, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        />
+
+        {/* Bottom row */}
+        <motion.div
+          className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
         >
-          © {year} Build Pa&apos;l Norte. {dictionary.footer.copyright}
-        </p>
+          <p className="text-xs text-white/25" style={{ fontFamily: outfit }}>
+            © {year} Build Pa&apos;l Norte. {dictionary.footer.rightsReserved}
+          </p>
+          <p className="text-xs tracking-[0.2em] text-white/20" style={{ fontFamily: montserrat }}>
+            {dictionary.footer.locationTag}
+          </p>
+        </motion.div>
       </div>
     </footer>
   );

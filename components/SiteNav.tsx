@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
 import { useDictionary, useLocale } from "@/components/LocaleProvider";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { localizedPath } from "@/lib/i18n";
-import { HERO_EASE, prefersReducedMotion } from "@/lib/motion";
 import { montserrat, outfit } from "@/lib/theme";
 
 type SiteNavProps = {
@@ -16,9 +15,9 @@ type SiteNavProps = {
 export function SiteNav({ onRegisterClick }: SiteNavProps) {
   const { locale } = useLocale();
   const dictionary = useDictionary();
-  const headerRef = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
 
   const links = [
     { href: "#about", label: dictionary.nav.about },
@@ -28,160 +27,279 @@ export function SiteNav({ onRegisterClick }: SiteNavProps) {
   ];
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 48);
+    const onScroll = () => setScrolled(window.scrollY > 64);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  /* Active section tracking via IntersectionObserver */
   useEffect(() => {
-    if (prefersReducedMotion()) return;
+    const ids = links.map((l) => l.href.slice(1));
+    const observers: IntersectionObserver[] = [];
 
-    const header = headerRef.current;
-    if (!header) return;
-
-    gsap.to(header, {
-      opacity: 1,
-      y: 0,
-      duration: 0.75,
-      delay: 0.2,
-      ease: HERO_EASE,
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveSection(id);
+        },
+        { rootMargin: "-40% 0px -55% 0px" },
+      );
+      obs.observe(el);
+      observers.push(obs);
     });
+
+    return () => observers.forEach((o) => o.disconnect());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
     };
-
     document.body.style.overflow = "hidden";
     document.addEventListener("keydown", onKeyDown);
-
     return () => {
       document.body.style.overflow = "";
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [menuOpen]);
 
-  function handleNavClick() {
-    setMenuOpen(false);
-  }
-
   return (
-    <header
-      ref={headerRef}
-      className={`site-nav-mount fixed top-0 right-0 left-0 z-[60] transition-all duration-500 ${
-        scrolled || menuOpen
-          ? "border-b border-[#aaff00]/15 bg-black/80 backdrop-blur-md"
-          : "bg-transparent"
-      }`}
+    <motion.header
+      className="site-nav-mount fixed top-0 right-0 left-0 z-[60] flex flex-col items-center"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
     >
+      {/* Vertical accent lines */}
+      <AnimatePresence>
+        {!scrolled && !menuOpen && (
+          <motion.div
+            key="accent-lines"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="pointer-events-none absolute inset-x-0 top-0"
+          >
+            <div className="absolute left-[22%] top-0 h-20 w-px bg-gradient-to-b from-[#aaff00]/25 to-transparent" />
+            <div className="absolute left-1/2 top-0 h-24 w-px bg-gradient-to-b from-[#aaff00]/15 to-transparent" />
+            <div className="absolute left-[78%] top-0 h-20 w-px bg-gradient-to-b from-[#aaff00]/20 to-transparent" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── DESKTOP pill nav ─────────────────────────────────────────── */}
       <nav
-        className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4"
         aria-label="Main"
+        className={`
+          relative mx-auto hidden w-full items-center justify-between
+          gap-4 px-2 transition-all duration-500 md:flex
+          ${
+            scrolled
+              ? "mt-3 max-w-4xl rounded-full border border-white/[0.08] bg-black/75 py-2 shadow-[0_8px_32px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-2xl"
+              : "mt-0 max-w-5xl rounded-none border-transparent bg-transparent py-4"
+          }
+        `}
       >
+        {/* Subtle inner glow on the top edge — only when scrolled */}
+        {scrolled && (
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px rounded-full bg-gradient-to-r from-transparent via-[#aaff00]/20 to-transparent" />
+        )}
+
+        {/* Logo */}
         <Link
           href={localizedPath(locale)}
-          className="min-w-0 truncate text-xs font-black tracking-tight text-white transition-colors hover:text-[#aaff00] sm:text-sm"
+          className="group flex shrink-0 items-center gap-2.5 rounded-full px-3 py-1.5"
           style={{ fontFamily: montserrat }}
         >
-          Build Pa&apos;l Norte
+          <svg
+            width="26"
+            height="26"
+            viewBox="0 0 32 32"
+            aria-hidden="true"
+            className="shrink-0 drop-shadow-[0_0_7px_rgba(170,255,0,0.55)] transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(170,255,0,0.85)]"
+          >
+            <rect width="32" height="32" rx="7" fill="#000" />
+            <polygon points="16,4 28,10.5 16,17 4,10.5" fill="#aaff00" />
+            <polygon points="4,10.5 16,17 16,28 4,21.5" fill="#55aa00" />
+            <polygon points="28,10.5 16,17 16,28 28,21.5" fill="#77cc00" />
+          </svg>
+          <span
+            className="text-sm font-black tracking-tight text-white transition-colors duration-300 group-hover:text-[#aaff00]"
+          >
+            Build Pa&apos;l Norte
+          </span>
         </Link>
 
-        <div className="flex shrink-0 items-center gap-3 sm:gap-6">
-          <div
-            className="hidden items-center gap-6 text-xs tracking-[0.2em] text-white/50 md:flex"
-            style={{ fontFamily: outfit }}
-          >
-            {links.map((link) => (
+        {/* Nav links */}
+        <div
+          className="flex items-center gap-1"
+          style={{ fontFamily: outfit }}
+        >
+          {links.map((link) => {
+            const id = link.href.slice(1);
+            const isActive = activeSection === id;
+            return (
               <a
                 key={link.href}
                 href={link.href}
-                className="transition-colors hover:text-[#aaff00]"
+                className={`
+                  relative rounded-full px-3.5 py-2 text-[11px] tracking-[0.1em] transition-all duration-200
+                  ${
+                    isActive
+                      ? "text-[#aaff00]"
+                      : "text-white/50 hover:text-white/90"
+                  }
+                `}
               >
-                {link.label}
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-pill"
+                    className="absolute inset-0 rounded-full bg-[#aaff00]/10 ring-1 ring-[#aaff00]/20"
+                    transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                  />
+                )}
+                <span className="relative">{link.label}</span>
               </a>
-            ))}
-          </div>
+            );
+          })}
+        </div>
 
+        {/* Right side */}
+        <div className="flex shrink-0 items-center gap-2">
           <LanguageSwitcher />
 
-          <button
+          <motion.button
             type="button"
             onClick={onRegisterClick}
-            className="shrink-0 rounded border border-[#aaff00]/35 bg-[#aaff00]/10 px-2.5 py-1.5 text-[10px] font-black tracking-[0.12em] text-[#aaff00] shadow-[0_0_20px_rgba(170,255,0,0.12)] transition-all hover:border-[#aaff00]/70 hover:bg-[#aaff00]/20 hover:shadow-[0_0_24px_rgba(170,255,0,0.25)] sm:px-3.5 sm:py-2 sm:text-xs sm:tracking-[0.15em]"
+            className={`
+              rounded-full px-5 py-2 text-[11px] font-black tracking-[0.12em] transition-all duration-500
+              ${
+                scrolled
+                  ? "bg-[#aaff00] text-black shadow-[0_0_18px_rgba(170,255,0,0.35)] hover:bg-[#c8ff40] hover:shadow-[0_0_28px_rgba(170,255,0,0.55)]"
+                  : "border border-[#aaff00]/40 bg-[#aaff00]/10 text-[#aaff00] hover:border-[#aaff00]/70 hover:bg-[#aaff00]/20"
+              }
+            `}
             style={{ fontFamily: montserrat }}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
           >
             {dictionary.hero.registerNow}
-          </button>
+          </motion.button>
+        </div>
+      </nav>
 
+      {/* ── MOBILE top bar ───────────────────────────────────────────── */}
+      <div
+        className={`
+          flex w-full items-center justify-between px-4 py-3 transition-all duration-500 md:hidden
+          ${
+            scrolled || menuOpen
+              ? "border-b border-white/[0.07] bg-black/80 backdrop-blur-xl"
+              : "bg-transparent"
+          }
+        `}
+      >
+        <Link
+          href={localizedPath(locale)}
+          className="group flex items-center gap-2"
+          style={{ fontFamily: montserrat }}
+        >
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 32 32"
+            aria-hidden="true"
+            className="shrink-0 drop-shadow-[0_0_6px_rgba(170,255,0,0.5)]"
+          >
+            <rect width="32" height="32" rx="7" fill="#000" />
+            <polygon points="16,4 28,10.5 16,17 4,10.5" fill="#aaff00" />
+            <polygon points="4,10.5 16,17 16,28 4,21.5" fill="#55aa00" />
+            <polygon points="28,10.5 16,17 16,28 28,21.5" fill="#77cc00" />
+          </svg>
+          <span className="text-xs font-black tracking-tight text-white group-hover:text-[#aaff00]">
+            Build Pa&apos;l Norte
+          </span>
+        </Link>
+
+        <div className="flex items-center gap-2">
+          <LanguageSwitcher />
           <button
             type="button"
-            className="relative flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-white/70 transition-colors hover:border-[#aaff00]/30 hover:text-[#aaff00] md:hidden"
-            onClick={() => setMenuOpen((open) => !open)}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white/60 transition-colors hover:border-[#aaff00]/30 hover:text-[#aaff00]"
+            onClick={() => setMenuOpen((o) => !o)}
             aria-expanded={menuOpen}
             aria-controls="mobile-nav-menu"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
           >
-            <span className="sr-only">{menuOpen ? "Close menu" : "Open menu"}</span>
             <span className="flex h-3.5 w-4 flex-col justify-between">
               <span
-                className={`block h-0.5 w-full bg-current transition-transform duration-300 ${
-                  menuOpen ? "translate-y-[6px] rotate-45" : ""
-                }`}
+                className={`block h-0.5 w-full bg-current transition-transform duration-300 ${menuOpen ? "translate-y-[6px] rotate-45" : ""}`}
               />
               <span
-                className={`block h-0.5 w-full bg-current transition-opacity duration-300 ${
-                  menuOpen ? "opacity-0" : ""
-                }`}
+                className={`block h-0.5 w-full bg-current transition-opacity duration-300 ${menuOpen ? "opacity-0" : ""}`}
               />
               <span
-                className={`block h-0.5 w-full bg-current transition-transform duration-300 ${
-                  menuOpen ? "-translate-y-[6px] -rotate-45" : ""
-                }`}
+                className={`block h-0.5 w-full bg-current transition-transform duration-300 ${menuOpen ? "-translate-y-[6px] -rotate-45" : ""}`}
               />
             </span>
           </button>
         </div>
-      </nav>
-
-      <div
-        id="mobile-nav-menu"
-        className={`overflow-hidden border-t border-[#aaff00]/10 bg-black/95 backdrop-blur-md transition-[max-height,opacity] duration-300 md:hidden ${
-          menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-        }`}
-        aria-hidden={!menuOpen}
-      >
-        <div
-          className="mx-auto flex max-w-5xl flex-col px-4 py-2"
-          style={{ fontFamily: outfit }}
-        >
-          <button
-            type="button"
-            onClick={() => {
-              handleNavClick();
-              onRegisterClick();
-            }}
-            className="mb-2 mt-1 w-full rounded border border-[#aaff00]/35 bg-[#aaff00]/10 py-3 text-xs font-black tracking-[0.15em] text-[#aaff00] shadow-[0_0_20px_rgba(170,255,0,0.12)] transition-all hover:border-[#aaff00]/70 hover:bg-[#aaff00]/20"
-            style={{ fontFamily: montserrat }}
-          >
-            {dictionary.hero.registerNow}
-          </button>
-
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={handleNavClick}
-              className="border-b border-white/5 py-4 text-sm tracking-[0.2em] text-white/60 transition-colors last:border-b-0 hover:text-[#aaff00] active:text-[#aaff00]"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
       </div>
-    </header>
+
+      {/* ── MOBILE drawer ────────────────────────────────────────────── */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            id="mobile-nav-menu"
+            key="mobile-menu"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            className="w-full overflow-hidden border-b border-[#aaff00]/10 bg-black/95 backdrop-blur-2xl md:hidden"
+            aria-hidden={!menuOpen}
+          >
+            <div
+              className="mx-auto flex max-w-md flex-col gap-1 px-4 pb-4 pt-2"
+              style={{ fontFamily: outfit }}
+            >
+              <button
+                type="button"
+                onClick={() => {
+                  setMenuOpen(false);
+                  onRegisterClick();
+                }}
+                className="mb-1 mt-2 w-full rounded-full bg-[#aaff00] py-3 text-xs font-black tracking-[0.15em] text-black shadow-[0_0_20px_rgba(170,255,0,0.3)] transition-all hover:bg-[#c8ff40]"
+                style={{ fontFamily: montserrat }}
+              >
+                {dictionary.hero.registerNow}
+              </button>
+
+              {links.map((link, i) => (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-2 border-b border-white/5 py-3.5 text-sm tracking-[0.16em] text-white/55 transition-colors last:border-b-0 hover:text-[#aaff00]"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.22, delay: i * 0.05 }}
+                >
+                  <span className="h-px w-3 shrink-0 bg-[#aaff00]/30" />
+                  {link.label}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 }

@@ -7,10 +7,10 @@ const dictionary: Dictionary = {
       "Un hackathon de 24 horas en Matamoros para jóvenes. Programa, crea y compite — únete a la lista de espera de Build Pa'l Norte.",
   },
   nav: {
-    about: "ACERCA DE",
-    whyJoin: "POR QUÉ UNIRTE",
-    howItWorks: "CÓMO FUNCIONA",
-    faq: "PREGUNTAS",
+    about: "ACERCA",
+    whyJoin: "VENTAJAS",
+    howItWorks: "PROCESO",
+    faq: "FAQ",
   },
   hero: {
     tagline: "un hackathon de tecnología de 24h para jóvenes",
@@ -21,6 +21,7 @@ const dictionary: Dictionary = {
   about: {
     label: "LA MISIÓN",
     title: "Programa. Crea. Compite.",
+    accentWord: "Compite.",
     subtitle:
       "Un hackathon de 24 horas en Matamoros donde jóvenes convierten ideas locas en prototipos que funcionan.",
     whatIsIt: "¿QUÉ ES?",
@@ -38,38 +39,46 @@ const dictionary: Dictionary = {
   highlights: {
     label: "POR QUÉ UNIRTE",
     title: "Más Que un Fin de Semana",
+    accentWord: "Semana",
     subtitle:
       "Todo lo que necesitas para pasar de la idea al demo — y pasarla increíble en el camino.",
+    featuredCta: "EMPIEZA A CONSTRUIR",
+    learnMoreCta: "SABER MÁS",
     items: [
       {
         id: "ship",
+        tag: "CONSTRUYE",
         title: "Lanza Algo Real",
         description:
           "De la hoja en blanco al demo en vivo. Apps, hardware, juegos, herramientas — si lo puedes imaginar, lo puedes construir.",
       },
       {
         id: "crew",
+        tag: "TU TRIBU",
         title: "Encuentra Tu Equipo",
         description:
           "Ven solo o trae amigos. Te ayudamos a encontrar compañeros que complementen tus habilidades y tu energía.",
       },
       {
         id: "learn",
+        tag: "SUBE DE NIVEL",
         title: "Aprende de Expertos",
         description:
           "Mentores de la industria dan talleres de diseño, APIs, pitch y más. Haz preguntas, resuelve bloqueos y sube de nivel.",
       },
       {
         id: "win",
-        title: "Gana y Destaca",
+        tag: "DESTACA",
+        title: "Presenta y Destaca",
         description:
-          "Los mejores proyectos se llevan premios, swag y derecho a presumir. Los jueces buscan creatividad, ejecución e impacto.",
+          "Muestra tu proyecto ante los jueces y la audiencia. Obtén reconocimiento por creatividad, ejecución e impacto — y el derecho a presumir.",
       },
     ],
   },
   howItWorks: {
     label: "EL FLUJO",
     title: "Cómo Funciona",
+    accentWord: "Funciona",
     subtitle: "Cuatro pasos de curioso a competidor. Así de simple.",
     steps: [
       {
@@ -94,13 +103,14 @@ const dictionary: Dictionary = {
         step: "04",
         title: "Demo y Celebración",
         description:
-          "Presenta tu proyecto ante jueces y público. Se anuncian ganadores, se entregan premios y se hacen nuevos amigos.",
+          "Presenta tu proyecto ante jueces y público. Los mejores proyectos se reconocen, aplausos garantizados y nuevos amigos hechos.",
       },
     ],
   },
   faq: {
     label: "PREGUNTAS",
     title: "¿Tienes Dudas?",
+    accentWord: "Dudas?",
     subtitle:
       "Tenemos respuestas. ¿Aún con dudas? Escríbenos a hello@buildpalnorte.com",
     items: [
@@ -142,31 +152,167 @@ const dictionary: Dictionary = {
     subtitle:
       "Los lugares se van rápido. Deja tu nombre en la lista de espera y te contactamos cuando abran las puertas.",
     button: "ÚNETE A LA LISTA",
+    urgencyBadge: "LUGARES SE AGOTAN",
+    socialProof: "Constructores ya registrados — únete",
+    footnote: "Gratis · Sin tarjeta de crédito · Solo trae tus ideas",
+  },
+  perks: {
+    label: "LO QUE INCLUYE",
+    title: "Todo Incluido",
+    accentWord: "Incluido",
+    subtitle: "Cero costo. Máximo valor. Llega y nosotros nos encargamos del resto.",
+    featuredNote: "INCLUIDO PARA TODOS LOS PARTICIPANTES",
+    bottomCallout: "GRATIS · TODO INCLUIDO · SIN COMPROMISOS",
+    items: [
+      {
+        id: "food",
+        title: "Comida y Bebidas",
+        body: "Combustible para 24 horas. Comidas, snacks y café — todo incluido. Solo trae el apetito.",
+      },
+      {
+        id: "wifi",
+        title: "WiFi de Alta Velocidad",
+        body: "Tenemos la infraestructura. Tú enfócate en construir, no en problemas de conexión.",
+      },
+      {
+        id: "mentors",
+        title: "Mentores Expertos",
+        body: "Constructores de la industria recorren el espacio listos para ayudarte con diseño, código o pitch.",
+      },
+      {
+        id: "workshops",
+        title: "Talleres en Vivo",
+        body: "Sesiones prácticas con herramientas reales — desde APIs hasta pensamiento de producto.",
+      },
+      {
+        id: "teams",
+        title: "Formación de Equipos",
+        body: "¿Vienes solo? Te conectamos con compañeros que complementen tus habilidades.",
+      },
+      {
+        id: "demo",
+        title: "Día de Demos",
+        body: "Presenta tu proyecto ante una audiencia. Recibe feedback, reconocimiento y aplausos.",
+      },
+      {
+        id: "community",
+        title: "Comunidad",
+        body: "Sal con amistades reales, colaboradores y una red que dura más allá del evento.",
+      },
+      {
+        id: "swag",
+        title: "Swag",
+        body: "Merch exclusivo de Build Pa'l Norte para cada participante. Presume lo que construiste.",
+      },
+    ],
+  },
+  ticker: {
+    items: [
+      "24 HORAS PARA CREAR",
+      "GRATIS",
+      "MENTORES EXPERTOS",
+      "MATAMOROS 2026",
+      "COMIDA INCLUIDA",
+      "FORMA TU EQUIPO",
+      "DÍA DE DEMOS",
+      "TODOS LOS NIVELES",
+      "TALLERES EN VIVO",
+      "CONSTRUYE ALGO REAL",
+      "SWAG PARA TODOS",
+      "COMUNIDAD PRIMERO",
+    ],
   },
   footer: {
     terms: "TÉRMINOS DE SERVICIO",
     privacy: "POLÍTICA DE PRIVACIDAD",
     contact: "CONTACTO",
+    sponsor: "SER PATROCINADOR",
     copyright: "Hecho por jóvenes, para jóvenes.",
+    eventHeading: "EVENTO",
+    legalHeading: "LEGAL",
+    rightsReserved: "Todos los derechos reservados.",
+    locationTag: "MATAMOROS · TAMAULIPAS · 2026",
   },
   waitlist: {
-    title: "ÚNETE A LA LISTA",
-    subtitle: "Sé el primero en saber cuando abra el registro.",
+    title: "REGISTRO DE PARTICIPANTES",
+    subtitle: "Regístrate para participar en Build Pa'l Norte.",
     name: "NOMBRE",
     email: "CORREO",
     phone: "TELÉFONO",
+    age: "EDAD",
+    sex: "SEXO",
+    school: "ESCUELA",
+    github: "GITHUB",
+    interests: "INTERESES",
+    optional: "opcional",
     namePlaceholder: "Tu nombre",
     phonePlaceholder: "+52 868 123 4567",
-    join: "UNIRME A LA LISTA",
+    agePlaceholder: "18",
+    schoolPlaceholder: "Tu escuela o universidad",
+    githubPlaceholder: "usuario o URL de perfil",
+    interestsPlaceholder: "Web, IA, diseño, hardware…",
+    sexOptions: {
+      male: "Masculino",
+      female: "Femenino",
+      other: "Otro",
+      preferNotToSay: "Prefiero no decir",
+    },
+    sexPlaceholder: "Selecciona",
+    join: "REGISTRARME",
     joining: "REGISTRANDO...",
     close: "CERRAR",
-    successTitle: "¡Estás en la lista!",
-    successDefault: "Te contactaremos cuando abra el registro.",
+    successTitle: "¡Registro completado!",
+    successDefault: "Te contactaremos pronto con los detalles del evento.",
     successAlready: "Ya estás registrado — estaremos en contacto.",
     errors: {
       invalidName: "Por favor ingresa tu nombre.",
       invalidEmail: "Por favor ingresa un correo válido.",
       invalidPhone: "Por favor ingresa un número de teléfono válido.",
+      invalidAge: "Debes tener 18 años o más para registrarte.",
+      invalidSex: "Por favor selecciona tu sexo.",
+      invalidGithub: "Por favor ingresa un usuario o URL de GitHub válido.",
+      firestoreSetup:
+        "Firestore aún no está configurado. Crea una base de datos en Firebase Console primero.",
+      unavailable:
+        "No se pudo conectar con Firestore. Revisa tu conexión e intenta de nuevo.",
+      generic: "Algo salió mal. Por favor intenta de nuevo.",
+    },
+  },
+  sponsor: {
+    title: "REGISTRO DE PATROCINADORES",
+    subtitle: "Únete como patrocinador y apoya a jóvenes constructores en Matamoros.",
+    name: "NOMBRE",
+    email: "CORREO",
+    phone: "TELÉFONO",
+    company: "EMPRESA",
+    sponsorship: "¿QUÉ QUIERES PATROCINAR?",
+    problem: "¿QUÉ PROBLEMA QUIERES VER RESUELTO?",
+    workshop: "¿QUIERES DAR UN TALLER?",
+    namePlaceholder: "Tu nombre",
+    phonePlaceholder: "+52 868 123 4567",
+    companyPlaceholder: "Empresa u organización",
+    sponsorshipPlaceholder: "Efectivo, premios, swag, comida, créditos en la nube…",
+    problemPlaceholder:
+      "¿Qué reto o tema te gustaría que los participantes aborden?",
+    workshopOptions: {
+      yes: "Sí",
+      no: "No",
+    },
+    workshopPlaceholder: "Selecciona",
+    submit: "ENVIAR",
+    submitting: "ENVIANDO...",
+    close: "CERRAR",
+    successTitle: "¡Gracias por tu interés!",
+    successDefault: "Te contactaremos para hablar de los detalles del patrocinio.",
+    successAlready: "Ya tenemos tu información — estaremos en contacto.",
+    errors: {
+      invalidName: "Por favor ingresa tu nombre.",
+      invalidEmail: "Por favor ingresa un correo válido.",
+      invalidPhone: "Por favor ingresa un número de teléfono válido.",
+      invalidCompany: "Por favor ingresa el nombre de tu empresa.",
+      invalidSponsorship: "Por favor describe qué te gustaría patrocinar.",
+      invalidProblem: "Por favor describe el problema que quieres ver resuelto.",
+      invalidWorkshop: "Por favor indica si quieres dar un taller.",
       firestoreSetup:
         "Firestore aún no está configurado. Crea una base de datos en Firebase Console primero.",
       unavailable:

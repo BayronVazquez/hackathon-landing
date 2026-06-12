@@ -1,15 +1,54 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isValidSex(sex) {
+      return sex in ['male', 'female', 'other', 'preferNotToSay'];
+    }
+
+    function isOptionalString(field) {
+      return !(field in request.resource.data) || request.resource.data[field] is string;
+    }
+
     match /waitlist/{emailId} {
-      allow create: if request.resource.data.keys().hasAll(['name', 'email', 'phone', 'createdAt'])
+      allow create: if request.resource.data.keys().hasAll(['name', 'email', 'phone', 'age', 'sex', 'createdAt'])
                     && request.resource.data.name is string
                     && request.resource.data.name.size() >= 2
                     && request.resource.data.email is string
                     && request.resource.data.email.matches('.*@.*\\..*')
                     && request.resource.data.phone is string
                     && request.resource.data.phone.size() >= 10
-                    && request.resource.data.phone.size() <= 15;
+                    && request.resource.data.phone.size() <= 15
+                    && request.resource.data.age is int
+                    && request.resource.data.age >= 18
+                    && request.resource.data.age <= 120
+                    && request.resource.data.sex is string
+                    && isValidSex(request.resource.data.sex)
+                    && isOptionalString('school')
+                    && isOptionalString('github')
+                    && isOptionalString('interests');
+      allow read: if true;
+      allow update, delete: if false;
+    }
+
+    match /sponsors/{emailId} {
+      allow create: if request.resource.data.keys().hasAll([
+                      'name', 'email', 'phone', 'company',
+                      'sponsorship', 'problem', 'wantsWorkshop', 'createdAt'
+                    ])
+                    && request.resource.data.name is string
+                    && request.resource.data.name.size() >= 2
+                    && request.resource.data.email is string
+                    && request.resource.data.email.matches('.*@.*\\..*')
+                    && request.resource.data.phone is string
+                    && request.resource.data.phone.size() >= 10
+                    && request.resource.data.phone.size() <= 15
+                    && request.resource.data.company is string
+                    && request.resource.data.company.size() >= 2
+                    && request.resource.data.sponsorship is string
+                    && request.resource.data.sponsorship.size() >= 3
+                    && request.resource.data.problem is string
+                    && request.resource.data.problem.size() >= 3
+                    && request.resource.data.wantsWorkshop is bool;
       allow read: if true;
       allow update, delete: if false;
     }

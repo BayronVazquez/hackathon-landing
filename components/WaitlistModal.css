@@ -71,6 +71,11 @@
   background-color: rgba(170, 255, 0, 0.04);
 }
 
+.waitlist-input option {
+  background-color: #050505;
+  color: #ffffff;
+}
+
 .waitlist-error {
   animation: waitlist-error-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }

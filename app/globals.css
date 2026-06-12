@@ -107,6 +107,7 @@ html {
   transform-box: fill-box;
 }
 
+/* site-nav-mount initial state handled by motion/react now */
 .site-nav-mount {
   opacity: 0;
   transform: translateY(-14px);
@@ -115,12 +116,6 @@ html {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  .fade-in-section {
-    opacity: 1;
-    transform: none;
-    transition: none;
   }
 
   .hero-cubes-layer,
@@ -140,6 +135,7 @@ html {
   }
 }
 
+/* Legacy fade-in classes kept for any non-motion fallback */
 .fade-in-section {
   opacity: 0;
   transform: translateY(24px);
@@ -151,6 +147,11 @@ html {
 .fade-in-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Neon text glow utility */
+.neon-glow {
+  text-shadow: 0 0 8px rgba(170, 255, 0, 0.6), 0 0 20px rgba(170, 255, 0, 0.3);
 }
 
 .legal-content a {

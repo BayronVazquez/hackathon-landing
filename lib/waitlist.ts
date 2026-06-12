@@ -8,6 +8,26 @@ import {
 } from "firebase/firestore";
 import { getDb } from "./firebase";
 
+export type SexOption = "male" | "female" | "other" | "preferNotToSay";
+
+export const SEX_OPTIONS: SexOption[] = [
+  "male",
+  "female",
+  "other",
+  "preferNotToSay",
+];
+
+export type ParticipantInput = {
+  name: string;
+  email: string;
+  phone: string;
+  age: string;
+  sex: string;
+  school?: string;
+  github?: string;
+  interests?: string;
+};
+
 export type WaitlistResult = {
   alreadyRegistered: boolean;
 };
@@ -16,6 +36,9 @@ export type WaitlistErrorMessages = {
   invalidName: string;
   invalidEmail: string;
   invalidPhone: string;
+  invalidAge: string;
+  invalidSex: string;
+  invalidGithub: string;
   firestoreSetup: string;
   unavailable: string;
   generic: string;
@@ -32,6 +55,31 @@ function isValidPhone(phone: string) {
 
 function emailToDocId(email: string) {
   return email.toLowerCase().replace(/[^a-z0-9]/g, "_");
+}
+
+function isValidAge(age: string) {
+  const parsed = Number.parseInt(age, 10);
+  return Number.isInteger(parsed) && parsed >= 18 && parsed <= 120;
+}
+
+function isValidSex(sex: string): sex is SexOption {
+  return SEX_OPTIONS.includes(sex as SexOption);
+}
+
+function normalizeGithub(github: string) {
+  const trimmed = github.trim();
+  if (!trimmed) return "";
+
+  const urlMatch = trimmed.match(
+    /(?:https?:\/\/)?(?:www\.)?github\.com\/([a-zA-Z0-9](?:[a-zA-Z0-9-]{0,37}[a-zA-Z0-9])?)/i,
+  );
+  if (urlMatch) return urlMatch[1];
+
+  if (/^[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,37}[a-zA-Z0-9])?$/.test(trimmed)) {
+    return trimmed;
+  }
+
+  return null;
 }
 
 function firestoreErrorCode(error: unknown) {
@@ -64,14 +112,15 @@ export async function getWaitlistCount(): Promise<number> {
 }
 
 export async function joinWaitlist(
-  name: string,
-  email: string,
-  phone: string,
+  input: ParticipantInput,
   messages: WaitlistErrorMessages,
 ): Promise<WaitlistResult> {
-  const trimmedName = name.trim();
-  const normalizedEmail = email.trim().toLowerCase();
-  const normalizedPhone = normalizePhone(phone);
+  const trimmedName = input.name.trim();
+  const normalizedEmail = input.email.trim().toLowerCase();
+  const normalizedPhone = normalizePhone(input.phone);
+  const trimmedSchool = input.school?.trim() ?? "";
+  const trimmedInterests = input.interests?.trim() ?? "";
+  const trimmedGithub = input.github?.trim() ?? "";
 
   if (trimmedName.length < 2) {
     throw new Error(messages.invalidName);
@@ -81,12 +130,30 @@ export async function joinWaitlist(
     throw new Error(messages.invalidEmail);
   }
 
-  if (!isValidPhone(phone)) {
+  if (!isValidPhone(input.phone)) {
     throw new Error(messages.invalidPhone);
+  }
+
+  if (!isValidAge(input.age)) {
+    throw new Error(messages.invalidAge);
+  }
+
+  if (!isValidSex(input.sex)) {
+    throw new Error(messages.invalidSex);
+  }
+
+  let github: string | undefined;
+  if (trimmedGithub) {
+    const normalized = normalizeGithub(trimmedGithub);
+    if (!normalized) {
+      throw new Error(messages.invalidGithub);
+    }
+    github = normalized;
   }
 
   const db = getDb();
   const docRef = doc(db, "waitlist", emailToDocId(normalizedEmail));
+  const age = Number.parseInt(input.age, 10);
 
   try {
     const existing = await getDoc(docRef);
@@ -94,12 +161,20 @@ export async function joinWaitlist(
       return { alreadyRegistered: true };
     }
 
-    await setDoc(docRef, {
+    const payload: Record<string, unknown> = {
       name: trimmedName,
       email: normalizedEmail,
       phone: normalizedPhone,
+      age,
+      sex: input.sex,
       createdAt: serverTimestamp(),
-    });
+    };
+
+    if (trimmedSchool) payload.school = trimmedSchool;
+    if (github) payload.github = github;
+    if (trimmedInterests) payload.interests = trimmedInterests;
+
+    await setDoc(docRef, payload);
 
     return { alreadyRegistered: false };
   } catch (error) {

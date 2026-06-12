@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FadeIn } from "@/components/FadeIn";
+import { motion, AnimatePresence } from "motion/react";
 import { SectionHeading } from "@/components/SectionHeading";
 import { useDictionary } from "@/components/LocaleProvider";
 import { montserrat, outfit } from "@/lib/theme";
@@ -11,28 +11,37 @@ export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="relative scroll-mt-16 border-t border-[#aaff00]/10 bg-[#030303] px-4 py-16 sm:px-6 sm:py-24 md:py-32">
-      <div className="mx-auto max-w-3xl">
-        <FadeIn>
-          <SectionHeading
-            label={faq.label}
-            title={faq.title}
-            subtitle={faq.subtitle}
-          />
-        </FadeIn>
+    <section id="faq" className="relative scroll-mt-16 overflow-hidden border-t border-[#aaff00]/10 bg-[#030303] px-4 py-16 sm:px-6 sm:py-24 md:py-32">
+      {/* Ambient glow */}
+      <div className="pointer-events-none absolute top-0 left-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#aaff00]/6 blur-[80px]" />
 
-        <div className="mt-10 space-y-3 sm:mt-14">
+      <div className="relative mx-auto max-w-3xl">
+        <SectionHeading
+          label={faq.label}
+          title={faq.title}
+          accentWord={faq.accentWord}
+          subtitle={faq.subtitle}
+        />
+
+        <div className="mt-10 space-y-2 sm:mt-14">
           {faq.items.map((item, index) => {
             const isOpen = openIndex === index;
 
             return (
-              <FadeIn key={item.question} delay={index * 60}>
-                <div
-                  className={`overflow-hidden rounded-xl border transition-colors duration-300 ${
-                    isOpen
-                      ? "border-[#aaff00]/30 bg-[#aaff00]/[0.04]"
-                      : "border-white/8 bg-black/40"
-                  }`}
+              <motion.div
+                key={item.question}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-20px" }}
+                transition={{ duration: 0.5, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <motion.div
+                  animate={isOpen
+                    ? { borderColor: "rgba(170,255,0,0.3)", backgroundColor: "rgba(170,255,0,0.03)" }
+                    : { borderColor: "rgba(255,255,255,0.07)", backgroundColor: "rgba(0,0,0,0.4)" }
+                  }
+                  transition={{ duration: 0.25 }}
+                  className="overflow-hidden rounded-xl border"
                 >
                   <button
                     type="button"
@@ -41,36 +50,42 @@ export function FaqSection() {
                     aria-expanded={isOpen}
                   >
                     <span
-                      className="text-sm font-semibold text-white sm:text-base"
-                      style={{ fontFamily: montserrat }}
+                      className="text-sm font-semibold text-white transition-colors duration-200 sm:text-base"
+                      style={{ fontFamily: montserrat, color: isOpen ? "rgba(170,255,0,0.9)" : "white" }}
                     >
                       {item.question}
                     </span>
-                    <span
-                      className={`shrink-0 text-[#aaff00] transition-transform duration-300 ${
-                        isOpen ? "rotate-45" : ""
-                      }`}
+                    <motion.span
+                      className="shrink-0 flex h-6 w-6 items-center justify-center rounded-full border border-[#aaff00]/30 text-[#aaff00] text-sm font-black"
+                      animate={{ rotate: isOpen ? 45 : 0 }}
+                      transition={{ duration: 0.25, ease: "easeInOut" }}
                       aria-hidden="true"
                     >
                       +
-                    </span>
+                    </motion.span>
                   </button>
-                  <div
-                    className={`grid transition-all duration-300 ease-out ${
-                      isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                    }`}
-                  >
-                    <div className="overflow-hidden">
-                      <p
-                        className="px-4 pb-4 text-sm leading-relaxed text-white/60 sm:px-6 sm:pb-5"
-                        style={{ fontFamily: outfit }}
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        key="content"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        style={{ overflow: "hidden" }}
                       >
-                        {item.answer}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </FadeIn>
+                        <p
+                          className="px-4 pb-4 text-sm leading-relaxed text-white/60 sm:px-6 sm:pb-5"
+                          style={{ fontFamily: outfit }}
+                        >
+                          {item.answer}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              </motion.div>
             );
           })}
         </div>

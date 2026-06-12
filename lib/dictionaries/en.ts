@@ -8,8 +8,8 @@ const dictionary: Dictionary = {
   },
   nav: {
     about: "ABOUT",
-    whyJoin: "WHY JOIN",
-    howItWorks: "HOW IT WORKS",
+    whyJoin: "PERKS",
+    howItWorks: "PROCESS",
     faq: "FAQ",
   },
   hero: {
@@ -21,6 +21,7 @@ const dictionary: Dictionary = {
   about: {
     label: "THE MISSION",
     title: "Code. Create. Compete.",
+    accentWord: "Compete.",
     subtitle:
       "A 24-hour hackathon in Matamoros where young builders turn wild ideas into working prototypes.",
     whatIsIt: "WHAT IS IT?",
@@ -38,38 +39,46 @@ const dictionary: Dictionary = {
   highlights: {
     label: "WHY JOIN",
     title: "More Than a Weekend",
+    accentWord: "Weekend",
     subtitle:
       "Everything you need to go from idea to demo — and have a blast doing it.",
+    featuredCta: "START BUILDING",
+    learnMoreCta: "LEARN MORE",
     items: [
       {
         id: "ship",
+        tag: "BUILD IT",
         title: "Ship Something Real",
         description:
           "Go from blank canvas to live demo. Apps, hardware, games, tools — if you can imagine it, you can build it.",
       },
       {
         id: "crew",
+        tag: "FIND YOUR TRIBE",
         title: "Find Your Crew",
         description:
           "Come solo or bring friends. We'll help you match with teammates who complement your skills and energy.",
       },
       {
         id: "learn",
+        tag: "LEVEL UP",
         title: "Learn From Pros",
         description:
           "Industry mentors drop in with workshops on design, APIs, pitching, and more. Ask questions, get unstuck, level up.",
       },
       {
         id: "win",
-        title: "Win & Get Seen",
+        tag: "GET SEEN",
+        title: "Demo & Get Seen",
         description:
-          "Top projects take home prizes, swag, and bragging rights. Judges are looking for creativity, execution, and impact.",
+          "Present your project to judges and an audience. Get recognized for creativity, execution, and impact — and take home bragging rights.",
       },
     ],
   },
   howItWorks: {
     label: "THE FLOW",
     title: "How It Works",
+    accentWord: "Works",
     subtitle: "Four steps from curious to competitor. Simple as that.",
     steps: [
       {
@@ -94,13 +103,14 @@ const dictionary: Dictionary = {
         step: "04",
         title: "Demo & Celebrate",
         description:
-          "Pitch your project to judges and the crowd. Winners announced, prizes handed out, new friends made.",
+          "Pitch your project to judges and the crowd. Top projects get recognized, applause earned, new friends made.",
       },
     ],
   },
   faq: {
     label: "FAQ",
     title: "Got Questions?",
+    accentWord: "Questions?",
     subtitle:
       "We've got answers. Still stuck? Hit us up at hello@buildpalnorte.com",
     items: [
@@ -142,31 +152,167 @@ const dictionary: Dictionary = {
     subtitle:
       "Spots will go fast. Drop your name on the waitlist and we'll hit you up when doors open.",
     button: "JOIN THE WAITLIST",
+    urgencyBadge: "SPOTS FILLING FAST",
+    socialProof: "Builders already signed up — join them",
+    footnote: "Free to join · No credit card required · Just your ideas",
+  },
+  perks: {
+    label: "WHAT YOU GET",
+    title: "Everything Included",
+    accentWord: "Included",
+    subtitle: "Zero cost. Maximum value. Show up and we take care of the rest.",
+    featuredNote: "INCLUDED FOR ALL PARTICIPANTS",
+    bottomCallout: "FREE TO JOIN · ALL INCLUDED · NO STRINGS ATTACHED",
+    items: [
+      {
+        id: "food",
+        title: "Food & Drinks",
+        body: "Fuel for 24 hours. Meals, snacks, and coffee — all included. Just bring your appetite.",
+      },
+      {
+        id: "wifi",
+        title: "High-Speed WiFi",
+        body: "We've got the infrastructure. You focus on building, not on connection issues.",
+      },
+      {
+        id: "mentors",
+        title: "Expert Mentors",
+        body: "Industry builders roam the floor ready to unblock you on design, code, or pitch.",
+      },
+      {
+        id: "workshops",
+        title: "Live Workshops",
+        body: "Hands-on sessions on real tools and skills — from APIs to product thinking.",
+      },
+      {
+        id: "teams",
+        title: "Team Matching",
+        body: "Flying solo? We'll connect you with teammates who complement your skills.",
+      },
+      {
+        id: "demo",
+        title: "Demo Day",
+        body: "Present your project to an audience. Get feedback, recognition, and applause.",
+      },
+      {
+        id: "community",
+        title: "Community",
+        body: "Leave with real friendships, collaborators, and a network that lasts beyond the event.",
+      },
+      {
+        id: "swag",
+        title: "Swag",
+        body: "Exclusive Build Pa'l Norte merch for every participant. Wear your build with pride.",
+      },
+    ],
+  },
+  ticker: {
+    items: [
+      "24 HOURS TO BUILD",
+      "FREE TO JOIN",
+      "EXPERT MENTORS",
+      "MATAMOROS 2026",
+      "FOOD INCLUDED",
+      "FORM YOUR TEAM",
+      "DEMO DAY",
+      "ALL SKILL LEVELS",
+      "LIVE WORKSHOPS",
+      "BUILD SOMETHING REAL",
+      "SWAG FOR ALL",
+      "COMMUNITY FIRST",
+    ],
   },
   footer: {
     terms: "TERMS OF SERVICE",
     privacy: "PRIVACY POLICY",
     contact: "CONTACT",
+    sponsor: "BECOME A SPONSOR",
     copyright: "Built by young people, for young people.",
+    eventHeading: "EVENT",
+    legalHeading: "LEGAL",
+    rightsReserved: "All rights reserved.",
+    locationTag: "MATAMOROS · TAMAULIPAS · 2026",
   },
   waitlist: {
-    title: "JOIN THE WAITLIST",
-    subtitle: "Be the first to know when registration opens.",
+    title: "PARTICIPANT REGISTRATION",
+    subtitle: "Sign up to participate in Build Pa'l Norte.",
     name: "NAME",
     email: "EMAIL",
     phone: "PHONE",
+    age: "AGE",
+    sex: "SEX",
+    school: "SCHOOL",
+    github: "GITHUB",
+    interests: "INTERESTS",
+    optional: "optional",
     namePlaceholder: "Your name",
     phonePlaceholder: "+52 868 123 4567",
-    join: "JOIN WAITLIST",
-    joining: "JOINING...",
+    agePlaceholder: "18",
+    schoolPlaceholder: "Your school or university",
+    githubPlaceholder: "username or profile URL",
+    interestsPlaceholder: "Web dev, AI, design, hardware…",
+    sexOptions: {
+      male: "Male",
+      female: "Female",
+      other: "Other",
+      preferNotToSay: "Prefer not to say",
+    },
+    sexPlaceholder: "Select",
+    join: "REGISTER",
+    joining: "REGISTERING...",
     close: "CLOSE",
-    successTitle: "You're on the list!",
-    successDefault: "We'll reach out when registration opens.",
-    successAlready: "You're already signed up — we'll be in touch.",
+    successTitle: "You're registered!",
+    successDefault: "We'll reach out with event details soon.",
+    successAlready: "You're already registered — we'll be in touch.",
     errors: {
       invalidName: "Please enter your name.",
       invalidEmail: "Please enter a valid email address.",
       invalidPhone: "Please enter a valid phone number.",
+      invalidAge: "You must be 18 or older to register.",
+      invalidSex: "Please select your sex.",
+      invalidGithub: "Please enter a valid GitHub username or URL.",
+      firestoreSetup:
+        "Firestore is not set up yet. Create a Firestore database in Firebase Console first.",
+      unavailable:
+        "Could not reach Firestore. Check your internet connection and try again.",
+      generic: "Something went wrong. Please try again.",
+    },
+  },
+  sponsor: {
+    title: "SPONSOR REGISTRATION",
+    subtitle: "Partner with us to empower young builders in Matamoros.",
+    name: "NAME",
+    email: "EMAIL",
+    phone: "PHONE",
+    company: "COMPANY",
+    sponsorship: "WHAT DO YOU WANT TO SPONSOR?",
+    problem: "WHAT PROBLEM DO YOU WANT SOLVED?",
+    workshop: "WANT TO DO A WORKSHOP?",
+    namePlaceholder: "Your name",
+    phonePlaceholder: "+52 868 123 4567",
+    companyPlaceholder: "Company or organization",
+    sponsorshipPlaceholder: "Cash amount, prizes, swag, food, cloud credits…",
+    problemPlaceholder:
+      "What challenge or theme would you like hackers to tackle?",
+    workshopOptions: {
+      yes: "Yes",
+      no: "No",
+    },
+    workshopPlaceholder: "Select",
+    submit: "SUBMIT",
+    submitting: "SUBMITTING...",
+    close: "CLOSE",
+    successTitle: "Thanks for your interest!",
+    successDefault: "We'll reach out to discuss sponsorship details.",
+    successAlready: "We already have your info — we'll be in touch.",
+    errors: {
+      invalidName: "Please enter your name.",
+      invalidEmail: "Please enter a valid email address.",
+      invalidPhone: "Please enter a valid phone number.",
+      invalidCompany: "Please enter your company name.",
+      invalidSponsorship: "Please describe what you'd like to sponsor.",
+      invalidProblem: "Please describe the problem you'd like solved.",
+      invalidWorkshop: "Please select whether you'd like to do a workshop.",
       firestoreSetup:
         "Firestore is not set up yet. Create a Firestore database in Firebase Console first.",
       unavailable:

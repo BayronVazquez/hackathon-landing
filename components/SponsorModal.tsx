@@ -3,13 +3,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useDictionary } from "@/components/LocaleProvider";
-import { useWaitlistCount } from "@/components/WaitlistCountProvider";
-import { joinWaitlist, SEX_OPTIONS } from "@/lib/waitlist";
+import { registerSponsor } from "@/lib/sponsors";
 import ClickSpark from "./reactbits/ClickSpark";
 import StarBorder from "./reactbits/StarBorder";
 import "./WaitlistModal.css";
 
-type WaitlistModalProps = {
+type SponsorModalProps = {
   open: boolean;
   onClose: () => void;
   onSuccess?: () => void;
@@ -26,23 +25,21 @@ const outfit = "var(--font-outfit), Outfit, sans-serif";
 const inputClassName =
   "waitlist-input w-full rounded-xl border border-white/12 bg-white/[0.04] px-4 py-3 text-white outline-none placeholder:text-white/25";
 
-export function WaitlistModal({ open, onClose, onSuccess }: WaitlistModalProps) {
+export function SponsorModal({ open, onClose, onSuccess }: SponsorModalProps) {
   const dictionary = useDictionary();
-  const { waitlist } = dictionary;
-  const { refresh } = useWaitlistCount();
+  const { sponsor } = dictionary;
 
   const [shouldRender, setShouldRender] = useState(open);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [age, setAge] = useState("");
-  const [sex, setSex] = useState("");
-  const [school, setSchool] = useState("");
-  const [github, setGithub] = useState("");
-  const [interests, setInterests] = useState("");
+  const [company, setCompany] = useState("");
+  const [sponsorship, setSponsorship] = useState("");
+  const [problem, setProblem] = useState("");
+  const [workshop, setWorkshop] = useState("");
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState(waitlist.successDefault);
+  const [successMessage, setSuccessMessage] = useState(sponsor.successDefault);
 
   const backdropRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -155,16 +152,15 @@ export function WaitlistModal({ open, onClose, onSuccess }: WaitlistModalProps) 
       setName("");
       setEmail("");
       setPhone("");
-      setAge("");
-      setSex("");
-      setSchool("");
-      setGithub("");
-      setInterests("");
+      setCompany("");
+      setSponsorship("");
+      setProblem("");
+      setWorkshop("");
       setStatus("idle");
       setErrorMessage("");
-      setSuccessMessage(waitlist.successDefault);
+      setSuccessMessage(sponsor.successDefault);
     }
-  }, [open, waitlist.successDefault]);
+  }, [open, sponsor.successDefault]);
 
   useEffect(() => {
     if (status !== "success") return;
@@ -200,40 +196,23 @@ export function WaitlistModal({ open, onClose, onSuccess }: WaitlistModalProps) 
     setErrorMessage("");
 
     try {
-      const result = await joinWaitlist(
-        { name, email, phone, age, sex, school, github, interests },
-        waitlist.errors,
+      const result = await registerSponsor(
+        { name, email, phone, company, sponsorship, problem, workshop },
+        sponsor.errors,
       );
       setSuccessMessage(
         result.alreadyRegistered
-          ? waitlist.successAlready
-          : waitlist.successDefault,
+          ? sponsor.successAlready
+          : sponsor.successDefault,
       );
       setStatus("success");
-      void refresh();
       onSuccess?.();
     } catch (error) {
       setStatus("error");
       setErrorMessage(
-        error instanceof Error ? error.message : waitlist.errors.generic,
+        error instanceof Error ? error.message : sponsor.errors.generic,
       );
     }
-  }
-
-  function fieldLabel(label: string, optional = false) {
-    return (
-      <span
-        className="mb-2 block text-xs tracking-[0.3em] text-white/45"
-        style={{ fontFamily: outfit }}
-      >
-        {label}
-        {optional && (
-          <span className="ml-2 tracking-[0.15em] text-white/25">
-            ({waitlist.optional})
-          </span>
-        )}
-      </span>
-    );
   }
 
   return (
@@ -249,7 +228,7 @@ export function WaitlistModal({ open, onClose, onSuccess }: WaitlistModalProps) 
         onClick={(event) => event.stopPropagation()}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="waitlist-title"
+        aria-labelledby="sponsor-title"
       >
         <div className="waitlist-panel-glow" aria-hidden="true" />
 
@@ -278,11 +257,11 @@ export function WaitlistModal({ open, onClose, onSuccess }: WaitlistModalProps) 
             </svg>
           </div>
           <p
-            id="waitlist-title"
+            id="sponsor-title"
             className="waitlist-success-item text-2xl font-black text-white"
             style={{ fontFamily: montserrat }}
           >
-            {waitlist.successTitle}
+            {sponsor.successTitle}
           </p>
           <p
             className="waitlist-success-item mt-3 text-white/70"
@@ -296,7 +275,7 @@ export function WaitlistModal({ open, onClose, onSuccess }: WaitlistModalProps) 
             className="waitlist-success-item mt-8 text-sm tracking-[0.25em] text-[#aaff00] transition-opacity hover:opacity-80"
             style={{ fontFamily: outfit }}
           >
-            {waitlist.close}
+            {sponsor.close}
           </button>
         </div>
 
@@ -304,11 +283,11 @@ export function WaitlistModal({ open, onClose, onSuccess }: WaitlistModalProps) 
           <div className="waitlist-field flex items-center gap-4">
             <div className="waitlist-line h-px flex-1 bg-[#aaff00]/70" />
             <h2
-              id="waitlist-title"
+              id="sponsor-title"
               className="shrink-0 text-xl font-black tracking-wide text-white"
               style={{ fontFamily: montserrat }}
             >
-              {waitlist.title}
+              {sponsor.title}
             </h2>
             <div className="waitlist-line h-px flex-1 bg-[#aaff00]/70" />
           </div>
@@ -317,12 +296,17 @@ export function WaitlistModal({ open, onClose, onSuccess }: WaitlistModalProps) 
             className="waitlist-field mt-4 text-center text-sm tracking-wide text-white/55"
             style={{ fontFamily: outfit }}
           >
-            {waitlist.subtitle}
+            {sponsor.subtitle}
           </p>
 
           <form className="mt-8 max-h-[60vh] space-y-5 overflow-y-auto pr-1" onSubmit={handleSubmit}>
             <label className="waitlist-field block">
-              {fieldLabel(waitlist.name)}
+              <span
+                className="mb-2 block text-xs tracking-[0.3em] text-white/45"
+                style={{ fontFamily: outfit }}
+              >
+                {sponsor.name}
+              </span>
               <input
                 type="text"
                 name="name"
@@ -332,13 +316,18 @@ export function WaitlistModal({ open, onClose, onSuccess }: WaitlistModalProps) 
                 minLength={2}
                 autoComplete="name"
                 className={inputClassName}
-                placeholder={waitlist.namePlaceholder}
+                placeholder={sponsor.namePlaceholder}
                 style={{ fontFamily: outfit }}
               />
             </label>
 
             <label className="waitlist-field block">
-              {fieldLabel(waitlist.email)}
+              <span
+                className="mb-2 block text-xs tracking-[0.3em] text-white/45"
+                style={{ fontFamily: outfit }}
+              >
+                {sponsor.email}
+              </span>
               <input
                 type="email"
                 name="email"
@@ -347,13 +336,18 @@ export function WaitlistModal({ open, onClose, onSuccess }: WaitlistModalProps) 
                 required
                 autoComplete="email"
                 className={inputClassName}
-                placeholder="you@example.com"
+                placeholder="you@company.com"
                 style={{ fontFamily: outfit }}
               />
             </label>
 
             <label className="waitlist-field block">
-              {fieldLabel(waitlist.phone)}
+              <span
+                className="mb-2 block text-xs tracking-[0.3em] text-white/45"
+                style={{ fontFamily: outfit }}
+              >
+                {sponsor.phone}
+              </span>
               <input
                 type="tel"
                 name="phone"
@@ -363,90 +357,93 @@ export function WaitlistModal({ open, onClose, onSuccess }: WaitlistModalProps) 
                 autoComplete="tel"
                 inputMode="tel"
                 className={inputClassName}
-                placeholder={waitlist.phonePlaceholder}
+                placeholder={sponsor.phonePlaceholder}
                 style={{ fontFamily: outfit }}
               />
             </label>
 
-            <div className="waitlist-field grid gap-5 sm:grid-cols-2">
-              <label className="block">
-                {fieldLabel(waitlist.age)}
-                <input
-                  type="number"
-                  name="age"
-                  value={age}
-                  onChange={(event) => setAge(event.target.value)}
-                  required
-                  min={18}
-                  max={120}
-                  inputMode="numeric"
-                  className={inputClassName}
-                  placeholder={waitlist.agePlaceholder}
-                  style={{ fontFamily: outfit }}
-                />
-              </label>
-
-              <label className="block">
-                {fieldLabel(waitlist.sex)}
-                <select
-                  name="sex"
-                  value={sex}
-                  onChange={(event) => setSex(event.target.value)}
-                  required
-                  className={`${inputClassName} cursor-pointer`}
-                  style={{ fontFamily: outfit }}
-                >
-                  <option value="" disabled>
-                    {waitlist.sexPlaceholder}
-                  </option>
-                  {SEX_OPTIONS.map((option) => (
-                    <option key={option} value={option}>
-                      {waitlist.sexOptions[option]}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
-
             <label className="waitlist-field block">
-              {fieldLabel(waitlist.school, true)}
+              <span
+                className="mb-2 block text-xs tracking-[0.3em] text-white/45"
+                style={{ fontFamily: outfit }}
+              >
+                {sponsor.company}
+              </span>
               <input
                 type="text"
-                name="school"
-                value={school}
-                onChange={(event) => setSchool(event.target.value)}
+                name="company"
+                value={company}
+                onChange={(event) => setCompany(event.target.value)}
+                required
+                minLength={2}
                 autoComplete="organization"
                 className={inputClassName}
-                placeholder={waitlist.schoolPlaceholder}
+                placeholder={sponsor.companyPlaceholder}
                 style={{ fontFamily: outfit }}
               />
             </label>
 
             <label className="waitlist-field block">
-              {fieldLabel(waitlist.github, true)}
-              <input
-                type="text"
-                name="github"
-                value={github}
-                onChange={(event) => setGithub(event.target.value)}
-                autoComplete="off"
-                className={inputClassName}
-                placeholder={waitlist.githubPlaceholder}
+              <span
+                className="mb-2 block text-xs tracking-[0.3em] text-white/45"
                 style={{ fontFamily: outfit }}
-              />
-            </label>
-
-            <label className="waitlist-field block">
-              {fieldLabel(waitlist.interests, true)}
+              >
+                {sponsor.sponsorship}
+              </span>
               <textarea
-                name="interests"
-                value={interests}
-                onChange={(event) => setInterests(event.target.value)}
-                rows={2}
+                name="sponsorship"
+                value={sponsorship}
+                onChange={(event) => setSponsorship(event.target.value)}
+                required
+                minLength={3}
+                rows={3}
                 className={`${inputClassName} resize-y`}
-                placeholder={waitlist.interestsPlaceholder}
+                placeholder={sponsor.sponsorshipPlaceholder}
                 style={{ fontFamily: outfit }}
               />
+            </label>
+
+            <label className="waitlist-field block">
+              <span
+                className="mb-2 block text-xs tracking-[0.3em] text-white/45"
+                style={{ fontFamily: outfit }}
+              >
+                {sponsor.problem}
+              </span>
+              <textarea
+                name="problem"
+                value={problem}
+                onChange={(event) => setProblem(event.target.value)}
+                required
+                minLength={3}
+                rows={3}
+                className={`${inputClassName} resize-y`}
+                placeholder={sponsor.problemPlaceholder}
+                style={{ fontFamily: outfit }}
+              />
+            </label>
+
+            <label className="waitlist-field block">
+              <span
+                className="mb-2 block text-xs tracking-[0.3em] text-white/45"
+                style={{ fontFamily: outfit }}
+              >
+                {sponsor.workshop}
+              </span>
+              <select
+                name="workshop"
+                value={workshop}
+                onChange={(event) => setWorkshop(event.target.value)}
+                required
+                className={`${inputClassName} cursor-pointer`}
+                style={{ fontFamily: outfit }}
+              >
+                <option value="" disabled>
+                  {sponsor.workshopPlaceholder}
+                </option>
+                <option value="yes">{sponsor.workshopOptions.yes}</option>
+                <option value="no">{sponsor.workshopOptions.no}</option>
+              </select>
             </label>
 
             {status === "error" && errorMessage && (
@@ -476,7 +473,7 @@ export function WaitlistModal({ open, onClose, onSuccess }: WaitlistModalProps) 
                   className="w-full cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
                   style={{ fontFamily: montserrat }}
                 >
-                  {status === "submitting" ? waitlist.joining : waitlist.join}
+                  {status === "submitting" ? sponsor.submitting : sponsor.submit}
                 </StarBorder>
               </ClickSpark>
             </div>
