@@ -1,26 +1,7 @@
 import type { LegalBlock } from "@/lib/dictionaries";
 
-const CONTACT_EMAIL = "hello@buildpalnorte.com";
-
 function renderParagraph(text: string) {
-  if (!text.includes("{email}")) {
-    return <p>{text}</p>;
-  }
-
-  const [before, after] = text.split("{email}");
-
-  return (
-    <p>
-      {before}
-      <a
-        href={`mailto:${CONTACT_EMAIL}`}
-        className="text-[#aaff00] transition-opacity hover:opacity-80"
-      >
-        {CONTACT_EMAIL}
-      </a>
-      {after}
-    </p>
-  );
+  return <p>{text}</p>;
 }
 
 export function LegalBlocks({ blocks }: { blocks: LegalBlock[] }) {
@@ -28,9 +9,7 @@ export function LegalBlocks({ blocks }: { blocks: LegalBlock[] }) {
     <>
       {blocks.map((block, index) => {
         if (block.type === "paragraph") {
-          return (
-            <div key={`p-${index}`}>{renderParagraph(block.text)}</div>
-          );
+          return <div key={`p-${index}`}>{renderParagraph(block.text)}</div>;
         }
 
         return (

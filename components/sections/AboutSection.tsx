@@ -5,6 +5,7 @@ import { Clock, MapPin, Zap, Info, HelpCircle } from "lucide-react";
 import { SectionHeading } from "@/components/SectionHeading";
 import { useDictionary } from "@/components/LocaleProvider";
 import { WaitlistCounter } from "@/components/WaitlistCounter";
+import { PeserosCredit } from "@/components/PeserosCredit";
 import { montserrat, outfit } from "@/lib/theme";
 
 const STAT_ICONS = [Clock, Zap, MapPin];
@@ -38,6 +39,16 @@ export function AboutSection() {
           accentWord={about.accentWord}
           subtitle={about.subtitle}
         />
+
+        <motion.div
+          className="mx-auto mt-8 max-w-2xl"
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+        >
+          <PeserosCredit variant="banner" />
+        </motion.div>
 
         <div className="mt-12 grid gap-5 sm:mt-16 sm:gap-6 md:grid-cols-2">
           {cards.map((card, i) => (

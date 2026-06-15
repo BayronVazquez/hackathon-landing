@@ -6,6 +6,11 @@ const dictionary: Dictionary = {
     description:
       "A 24-hour tech hackathon in Matamoros for young people. Code, create, and compete — join the waitlist for Build Pa'l Norte.",
   },
+  brand: {
+    organizedBy: "Organized by",
+    organizerNote:
+      "Peseros puts Matamoros peseras on the map with live tracking — for riders, drivers, and route owners. They're organizing Build Pa'l Norte to invest in the city's next generation of builders.",
+  },
   nav: {
     about: "ABOUT",
     whyJoin: "PERKS",
@@ -111,8 +116,7 @@ const dictionary: Dictionary = {
     label: "FAQ",
     title: "Got Questions?",
     accentWord: "Questions?",
-    subtitle:
-      "We've got answers. Still stuck? Hit us up at hello@buildpalnorte.com",
+    subtitle: "We've got answers. Still stuck?",
     items: [
       {
         question: "Is there an age limit?",
@@ -319,6 +323,259 @@ const dictionary: Dictionary = {
         "Could not reach Firestore. Check your internet connection and try again.",
       generic: "Something went wrong. Please try again.",
     },
+  },
+  sponsorsSection: {
+    label: "SPONSORS",
+    title: "Backed by the Best",
+    accentWord: "Best",
+    subtitle:
+      "Build Pa'l Norte runs on the support of local businesses and people who believe in young builders. Cash, food, workshops, prizes — every contribution counts.",
+    cta: "BECOME A SPONSOR",
+    learnMore: "LEARN MORE",
+    note: "Custom packages available",
+    perks: [
+      { text: "Cash, food, or in-kind contributions welcome" },
+      { text: "Host a 60–90 min workshop or keynote" },
+      { text: "Direct access to motivated young talent" },
+      { text: "Real impact on Matamoros's tech community" },
+    ],
+  },
+  sponsorsPage: {
+    metaTitle: "Sponsor Build Pa'l Norte — Empower Young Builders",
+    metaDescription:
+      "Partner with Build Pa'l Norte to support the next generation of tech builders in Matamoros. Money, food, workshops, prizes — every contribution counts.",
+    label: "PARTNER WITH US",
+    title: "Sponsor the Future",
+    accentWord: "Future",
+    subtitle:
+      "Help us run a free, high-quality hackathon. Cash, food, prizes, cloud credits, workshops — every contribution matters.",
+    whyLabel: "WHY SPONSOR",
+    whyTitle: "Why It Matters",
+    whySubtitle:
+      "Your support makes the event free for everyone and puts real resources in the hands of young builders.",
+    whyItems: [
+      {
+        title: "Brand Visibility",
+        body: "Your logo on every piece of swag, our website, stage banners, and all event communications reaching hundreds of young builders.",
+      },
+      {
+        title: "Talent Pipeline",
+        body: "Meet motivated young developers, designers, and makers before they enter the job market. Recruiting at the source.",
+      },
+      {
+        title: "Host a Workshop",
+        body: "Run a live session, showcase your product, or set a challenge for participants. Direct access and real engagement.",
+      },
+      {
+        title: "Community Impact",
+        body: "Matamoros is building its tech scene from the ground up. Your sponsorship helps make a free, high-quality event possible.",
+      },
+    ],
+    contributionsLabel: "HOW YOU CAN HELP",
+    contributionsTitle: "What We Need",
+    contributionsSubtitle:
+      "We're not just looking for cash. If you can cover any of these, you're a sponsor — reach out and let's figure out the details.",
+    coveredLabel: "Covered by",
+    contributions: [
+      {
+        id: "venue",
+        category: "Venue",
+        examples: "Event space rental",
+        who: "Universities, co-working spaces",
+      },
+      {
+        id: "food",
+        category: "Food",
+        examples: "Full lunch for all participants",
+        who: "Restaurants, catering",
+      },
+      {
+        id: "dinner",
+        category: "Dinner",
+        examples: "Pizzas (30+), tacos, catering",
+        who: "Pizzerias, local restaurants",
+      },
+      {
+        id: "night-snacks",
+        category: "Night snacks",
+        examples: "Chips, candy, energy drinks",
+        who: "Convenience stores, brands",
+      },
+      {
+        id: "breakfast",
+        category: "Breakfast",
+        examples: "Coffee, pastries, fruit",
+        who: "Cafes, bakeries",
+      },
+      {
+        id: "beverages",
+        category: "Beverages",
+        examples: "Water, soft drinks",
+        who: "Distributors, convenience stores",
+      },
+      {
+        id: "prizes",
+        category: "Prizes",
+        examples: "Cash, gadgets, credits",
+        who: "Industrial companies, tech firms",
+      },
+      {
+        id: "branding",
+        category: "Branding",
+        examples: "Banners, stickers, print",
+        who: "Print shops, agencies",
+      },
+      {
+        id: "tech-av",
+        category: "Tech & AV",
+        examples: "Extension cords, internet, speakers",
+        who: "IT companies, venues",
+      },
+      {
+        id: "marketing",
+        category: "Marketing",
+        examples: "Ads, social media",
+        who: "Agencies, organizers",
+      },
+      {
+        id: "media",
+        category: "Media",
+        examples: "Photo and video coverage",
+        who: "Students, agencies",
+      },
+      {
+        id: "workshop",
+        category: "Workshop",
+        examples: "Run a 60–90 min session",
+        who: "Companies, professionals",
+      },
+    ],
+    workshopsLabel: "HOST A WORKSHOP",
+    workshopsTitle: "Bring a Workshop",
+    workshopsSubtitle:
+      "We don't have a workshop lineup yet — and that's where you come in. Sponsor a 60–90 minute session that helps participants build something real, not sit through a lecture.",
+    workshopsCallout:
+      "Workshops are open. If your company has expertise to share, we'd love to put you in front of the builders.",
+    workshopIdeasLabel: "EXAMPLE TOPICS WE'D LOVE TO SEE",
+    workshopExampleTag: "IDEA",
+    idealForLabel: "For:",
+    speakersLabel: "Who could host:",
+    workshopsHostCta:
+      "Want to host a workshop? Tell us your idea — we'll make it happen.",
+    workshops: [
+      {
+        id: "ai-agents",
+        title: "Building with AI Agents",
+        theme: "How to build AI agents that execute real tasks",
+        topics: [
+          "What is an agent",
+          "MCPs",
+          "RAG",
+          "Automation",
+          "Business use cases",
+        ],
+        idealFor: "All tracks",
+        speakers: "AI consultants, SaaS founders, CS professors",
+      },
+      {
+        id: "mvp",
+        title: "From Idea to MVP in 24 Hours",
+        theme: "How to validate an idea and turn it into a working prototype",
+        topics: [
+          "Define the problem",
+          "Realistic scope",
+          "Prioritization",
+          "How to win a hackathon",
+        ],
+        idealFor: "New teams",
+        speakers: "Entrepreneurs, startup founders, incubators",
+      },
+      {
+        id: "nearshoring",
+        title: "Nearshoring Opportunities in Northern Mexico",
+        theme: "Real problems that exist today in industry",
+        topics: [
+          "Nearshoring",
+          "Manufacturing",
+          "Supply chain",
+          "Regional opportunities",
+        ],
+        idealFor: "Enterprise, Smart Border Cities",
+        speakers: "INDEX Nacional, INDEX Matamoros, COPARMEX",
+      },
+      {
+        id: "logistics",
+        title: "Logistics & Cross-Border Commerce",
+        theme: "How cross-border logistics actually works",
+        topics: [
+          "Carta Porte",
+          "Customs",
+          "Transportation",
+          "International crossings",
+        ],
+        idealFor: "Enterprise",
+        speakers: "Customs agencies, freight companies, forwarders",
+      },
+      {
+        id: "ux",
+        title: "Rapid UI/UX for Hackathons",
+        theme: "Design fast without losing quality",
+        topics: ["Figma", "Wireframes", "MVP UX"],
+        idealFor: "Designers, developers",
+        speakers: "Local agencies, senior freelancers",
+      },
+      {
+        id: "cloud",
+        title: "Cloud Deployment in Under One Hour",
+        theme: "How to ship fast",
+        topics: ["VPS", "Docker", "Basic CI/CD"],
+        idealFor: "Everyone",
+        speakers: "Hosting companies, DevOps engineers",
+      },
+      {
+        id: "pitch",
+        title: "Pitching Like a Startup",
+        theme: "How to present a project",
+        topics: ["Storytelling", "Live demo", "How to impress judges"],
+        idealFor: "Everyone",
+        speakers: "Entrepreneurs, investors, accelerators",
+      },
+      {
+        id: "security",
+        title: "Cybersecurity for Modern Applications",
+        theme: "Basic security for applications",
+        topics: ["OWASP", "APIs", "AI security"],
+        idealFor: "AI track, Enterprise",
+        speakers: "Security engineers, consultants",
+      },
+    ],
+    keynotesLabel: "KEYNOTE IDEAS",
+    keynotesSubtitle:
+      "Short talks we'd love a sponsor or industry leader to deliver — not confirmed yet.",
+    keynotes: [
+      {
+        title: "Why Nearshoring Matters",
+        description:
+          "An industry leader explains the regional opportunity and what builders can do about it.",
+      },
+      {
+        title: "Building Companies from the Border",
+        description:
+          "A successful founder from the region shares what it took to build from Matamoros.",
+      },
+      {
+        title: "The Future of AI in Business",
+        description:
+          "An AI expert unpacks where the industry is heading and what that means for young builders.",
+      },
+    ],
+    ctaLabel: "READY TO PARTNER?",
+    ctaTitle: "Let's Build Together",
+    ctaSubtitle:
+      "Tell us what you want to contribute — cash, food, a workshop, or something else. We'll figure out the details together.",
+    ctaButton: "BECOME A SPONSOR",
+    ctaNote: "No commitment until you're ready · We'll reach out within 48h",
+    back: "← BACK",
   },
   legal: {
     back: "← BACK",

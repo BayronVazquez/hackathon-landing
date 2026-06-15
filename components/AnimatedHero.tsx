@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useDictionary } from "@/components/LocaleProvider";
 import { WaitlistCounter } from "@/components/WaitlistCounter";
+import { PeserosCredit } from "@/components/PeserosCredit";
 import { HERO_EASE, prefersReducedMotion } from "@/lib/motion";
 import { useIsMobile } from "@/lib/useMediaQuery";
 import { outfit } from "@/lib/theme";
@@ -310,6 +311,8 @@ export function AnimatedHero({ onRegisterClick, ready = true }: AnimatedHeroProp
         >
           {dictionary.hero.location}
         </p>
+
+        <PeserosCredit variant="inline" className="hero-fade-item mt-5 justify-center" />
 
         <div className="hero-fade-item mt-5 flex flex-col items-center gap-1 sm:mt-6 sm:flex-row sm:items-baseline sm:gap-2">
           <WaitlistCounter size="sm" />

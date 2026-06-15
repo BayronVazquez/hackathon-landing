@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { montserrat, accent } from "@/lib/theme";
 import { prefersReducedMotion } from "@/lib/motion";
+import { PeserosCredit } from "@/components/PeserosCredit";
 
 type SplashScreenProps = {
   /** Called once wipe panels start sliding away — triggers hero animation */
@@ -347,12 +348,15 @@ export function SplashScreen({ onReady, onComplete }: SplashScreenProps) {
           </div>
         </div>
 
-        <p
-          className="absolute bottom-6 text-[9px] tracking-[0.3em] uppercase text-white/15"
-          style={{ fontFamily: montserrat }}
-        >
-          V1.0.0 · BUILD 2026
-        </p>
+        <div className="absolute bottom-6 flex flex-col items-center gap-3">
+          <PeserosCredit variant="stacked" />
+          <p
+            className="text-[9px] tracking-[0.3em] uppercase text-white/15"
+            style={{ fontFamily: montserrat }}
+          >
+            V1.0.0 · BUILD 2026
+          </p>
+        </div>
       </div>
 
       <style>{`

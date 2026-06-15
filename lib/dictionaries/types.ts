@@ -1,4 +1,5 @@
 import type { Locale } from "@/lib/i18n";
+import type { ContributionId } from "@/lib/contribution-fulfillment";
 
 export type LegalBlock =
   | { type: "paragraph"; text: string }
@@ -13,6 +14,10 @@ export type Dictionary = {
   meta: {
     title: string;
     description: string;
+  };
+  brand: {
+    organizedBy: string;
+    organizerNote: string;
   };
   nav: {
     about: string;
@@ -187,6 +192,64 @@ export type Dictionary = {
       unavailable: string;
       generic: string;
     };
+  };
+  sponsorsSection: {
+    label: string;
+    title: string;
+    accentWord: string;
+    subtitle: string;
+    cta: string;
+    learnMore: string;
+    note: string;
+    perks: Array<{ text: string }>;
+  };
+  sponsorsPage: {
+    metaTitle: string;
+    metaDescription: string;
+    label: string;
+    title: string;
+    accentWord: string;
+    subtitle: string;
+    whyLabel: string;
+    whyTitle: string;
+    whySubtitle: string;
+    whyItems: Array<{ title: string; body: string }>;
+    contributionsLabel: string;
+    contributionsTitle: string;
+    contributionsSubtitle: string;
+    contributions: Array<{
+      id: ContributionId;
+      category: string;
+      examples: string;
+      who: string;
+    }>;
+    coveredLabel: string;
+    workshopsLabel: string;
+    workshopsTitle: string;
+    workshopsSubtitle: string;
+    workshopsCallout: string;
+    workshopIdeasLabel: string;
+    workshopExampleTag: string;
+    idealForLabel: string;
+    speakersLabel: string;
+    workshopsHostCta: string;
+    workshops: Array<{
+      id: string;
+      title: string;
+      theme: string;
+      topics: string[];
+      idealFor: string;
+      speakers: string;
+    }>;
+    keynotesLabel: string;
+    keynotesSubtitle: string;
+    keynotes: Array<{ title: string; description: string }>;
+    ctaLabel: string;
+    ctaTitle: string;
+    ctaSubtitle: string;
+    ctaButton: string;
+    ctaNote: string;
+    back: string;
   };
   legal: {
     back: string;

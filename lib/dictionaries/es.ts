@@ -6,6 +6,11 @@ const dictionary: Dictionary = {
     description:
       "Un hackathon de 24 horas en Matamoros para jóvenes. Programa, crea y compite — únete a la lista de espera de Build Pa'l Norte.",
   },
+  brand: {
+    organizedBy: "Organizado por",
+    organizerNote:
+      "Peseros pone las peseras de Matamoros en el mapa con rastreo en vivo — para pasajeros, choferes y dueños de rutas. Organizan Build Pa'l Norte para invertir en la próxima generación de creadores de la ciudad.",
+  },
   nav: {
     about: "ACERCA",
     whyJoin: "VENTAJAS",
@@ -111,8 +116,7 @@ const dictionary: Dictionary = {
     label: "PREGUNTAS",
     title: "¿Tienes Dudas?",
     accentWord: "Dudas?",
-    subtitle:
-      "Tenemos respuestas. ¿Aún con dudas? Escríbenos a hello@buildpalnorte.com",
+    subtitle: "Tenemos respuestas. ¿Aún con dudas?",
     items: [
       {
         question: "¿Hay límite de edad?",
@@ -160,7 +164,8 @@ const dictionary: Dictionary = {
     label: "LO QUE INCLUYE",
     title: "Todo Incluido",
     accentWord: "Incluido",
-    subtitle: "Cero costo. Máximo valor. Llega y nosotros nos encargamos del resto.",
+    subtitle:
+      "Cero costo. Máximo valor. Llega y nosotros nos encargamos del resto.",
     featuredNote: "INCLUIDO PARA TODOS LOS PARTICIPANTES",
     bottomCallout: "GRATIS · TODO INCLUIDO · SIN COMPROMISOS",
     items: [
@@ -280,7 +285,8 @@ const dictionary: Dictionary = {
   },
   sponsor: {
     title: "REGISTRO DE PATROCINADORES",
-    subtitle: "Únete como patrocinador y apoya a jóvenes constructores en Matamoros.",
+    subtitle:
+      "Únete como patrocinador y apoya a jóvenes constructores en Matamoros.",
     name: "NOMBRE",
     email: "CORREO",
     phone: "TELÉFONO",
@@ -291,7 +297,8 @@ const dictionary: Dictionary = {
     namePlaceholder: "Tu nombre",
     phonePlaceholder: "+52 868 123 4567",
     companyPlaceholder: "Empresa u organización",
-    sponsorshipPlaceholder: "Efectivo, premios, swag, comida, créditos en la nube…",
+    sponsorshipPlaceholder:
+      "Efectivo, premios, swag, comida, créditos en la nube…",
     problemPlaceholder:
       "¿Qué reto o tema te gustaría que los participantes aborden?",
     workshopOptions: {
@@ -303,7 +310,8 @@ const dictionary: Dictionary = {
     submitting: "ENVIANDO...",
     close: "CERRAR",
     successTitle: "¡Gracias por tu interés!",
-    successDefault: "Te contactaremos para hablar de los detalles del patrocinio.",
+    successDefault:
+      "Te contactaremos para hablar de los detalles del patrocinio.",
     successAlready: "Ya tenemos tu información — estaremos en contacto.",
     errors: {
       invalidName: "Por favor ingresa tu nombre.",
@@ -311,7 +319,8 @@ const dictionary: Dictionary = {
       invalidPhone: "Por favor ingresa un número de teléfono válido.",
       invalidCompany: "Por favor ingresa el nombre de tu empresa.",
       invalidSponsorship: "Por favor describe qué te gustaría patrocinar.",
-      invalidProblem: "Por favor describe el problema que quieres ver resuelto.",
+      invalidProblem:
+        "Por favor describe el problema que quieres ver resuelto.",
       invalidWorkshop: "Por favor indica si quieres dar un taller.",
       firestoreSetup:
         "Firestore aún no está configurado. Crea una base de datos en Firebase Console primero.",
@@ -319,6 +328,263 @@ const dictionary: Dictionary = {
         "No se pudo conectar con Firestore. Revisa tu conexión e intenta de nuevo.",
       generic: "Algo salió mal. Por favor intenta de nuevo.",
     },
+  },
+  sponsorsSection: {
+    label: "PATROCINADORES",
+    title: "Respaldados por los Mejores",
+    accentWord: "Mejores",
+    subtitle:
+      "Build Pa'l Norte existe gracias al apoyo de negocios locales y personas que creen en los jóvenes creadores. Efectivo, comida, talleres, premios — todo suma.",
+    cta: "SER PATROCINADOR",
+    learnMore: "APRENDER MÁS",
+    note: "Paquetes personalizados disponibles",
+    perks: [
+      { text: "Efectivo, comida o contribuciones en especie bienvenidas" },
+      { text: "Da un taller de 60–90 min o una keynote" },
+      { text: "Acceso directo a jóvenes talentosos y motivados" },
+      { text: "Impacto real en la comunidad tech de Matamoros" },
+    ],
+  },
+  sponsorsPage: {
+    metaTitle: "Patrocina Build Pa'l Norte — Apoya a los jóvenes constructores",
+    metaDescription:
+      "Sé patrocinador de Build Pa'l Norte y apoya a la próxima generación de creadores tecnológicos en Matamoros. Dinero, comida, talleres, premios — todo suma.",
+    label: "ÚNETE COMO SOCIO",
+    title: "Patrocina el Futuro",
+    accentWord: "Futuro",
+    subtitle:
+      "Ayúdanos a correr un hackathon gratuito y de calidad. Efectivo, comida, premios, créditos en la nube, talleres — cada contribución importa.",
+    whyLabel: "POR QUÉ PATROCINAR",
+    whyTitle: "Por Qué Importa",
+    whySubtitle:
+      "Tu apoyo hace que el evento sea gratuito para todos y pone recursos reales en manos de jóvenes creadores.",
+    whyItems: [
+      {
+        title: "Visibilidad de Marca",
+        body: "Tu logo en todo el swag, nuestro sitio web, pancartas del escenario y todas las comunicaciones del evento que llegan a cientos de jóvenes creadores.",
+      },
+      {
+        title: "Talento Joven",
+        body: "Conoce a desarrolladores, diseñadores y makers motivados antes de que entren al mercado laboral. Reclutamiento en la fuente.",
+      },
+      {
+        title: "Da un Taller",
+        body: "Dirige una sesión en vivo, muestra tu producto o plantea un reto a los participantes. Acceso directo y engagement real.",
+      },
+      {
+        title: "Impacto Comunitario",
+        body: "Matamoros está construyendo su ecosistema tech desde cero. Tu patrocinio hace posible un evento gratuito y de alta calidad.",
+      },
+    ],
+    contributionsLabel: "CÓMO PUEDES AYUDAR",
+    contributionsTitle: "Lo Que Necesitamos",
+    contributionsSubtitle:
+      "No solo buscamos efectivo. Si puedes cubrir cualquiera de estas cosas, eres patrocinador — escríbenos y lo resolvemos juntos.",
+    coveredLabel: "Cubierto por",
+    contributions: [
+      {
+        id: "venue",
+        category: "Lugar",
+        examples: "Renta de espacio para el evento",
+        who: "Universidades, coworks",
+      },
+      {
+        id: "food",
+        category: "Comida",
+        examples: "Comida completa para todos los participantes",
+        who: "Restaurantes, catering",
+      },
+      {
+        id: "dinner",
+        category: "Cena",
+        examples: "Pizzas (30+), tacos, catering",
+        who: "Pizzerías, restaurantes locales",
+      },
+      {
+        id: "night-snacks",
+        category: "Snacks nocturnos",
+        examples: "Papas, dulces, bebidas energéticas",
+        who: "Tiendas, marcas",
+      },
+      {
+        id: "breakfast",
+        category: "Desayuno",
+        examples: "Café, pan, fruta",
+        who: "Cafeterías, panaderías",
+      },
+      {
+        id: "beverages",
+        category: "Bebidas",
+        examples: "Agua, refrescos",
+        who: "Distribuidores, tiendas",
+      },
+      {
+        id: "prizes",
+        category: "Premios",
+        examples: "Efectivo, gadgets, créditos",
+        who: "Empresas industriales, tech",
+      },
+      {
+        id: "branding",
+        category: "Branding",
+        examples: "Lonas, stickers, impresión",
+        who: "Imprentas, agencias",
+      },
+      {
+        id: "tech-av",
+        category: "Técnico y AV",
+        examples: "Extensiones, internet, bocinas",
+        who: "Empresas IT, sedes",
+      },
+      {
+        id: "marketing",
+        category: "Marketing",
+        examples: "Ads, redes sociales",
+        who: "Agencias, organizadores",
+      },
+      {
+        id: "media",
+        category: "Medios",
+        examples: "Fotografía y video del evento",
+        who: "Estudiantes, agencias",
+      },
+      {
+        id: "workshop",
+        category: "Taller",
+        examples: "Dirige una sesión de 60–90 min",
+        who: "Empresas, profesionales",
+      },
+    ],
+    workshopsLabel: "DA UN TALLER",
+    workshopsTitle: "Trae un Taller",
+    workshopsSubtitle:
+      "Aún no tenemos talleres confirmados — ahí es donde entras tú. Patrocina una sesión de 60–90 minutos que ayude a los participantes a construir algo real, no a escuchar una clase.",
+    workshopsCallout:
+      "Los talleres están abiertos. Si tu empresa tiene expertise que compartir, nos encantaría ponerte frente a los constructores.",
+    workshopIdeasLabel: "TEMAS DE EJEMPLO QUE NOS ENCANTARÍA VER",
+    workshopExampleTag: "IDEA",
+    idealForLabel: "Para:",
+    speakersLabel: "Quién podría darlo:",
+    workshopsHostCta:
+      "¿Quieres dar un taller? Cuéntanos tu idea — lo hacemos realidad.",
+    workshops: [
+      {
+        id: "ai-agents",
+        title: "Building with AI Agents",
+        theme: "Cómo construir agentes de IA que ejecuten tareas reales",
+        topics: [
+          "Qué es un agente",
+          "MCPs",
+          "RAG",
+          "Automatización",
+          "Casos de uso empresariales",
+        ],
+        idealFor: "Todos los tracks",
+        speakers: "Consultores de IA, fundadores SaaS, profesores de CS",
+      },
+      {
+        id: "mvp",
+        title: "From Idea to MVP in 24 Hours",
+        theme: "Cómo validar una idea y convertirla en un prototipo funcional",
+        topics: [
+          "Definir el problema",
+          "Alcance realista",
+          "Priorización",
+          "Cómo ganar un hackathon",
+        ],
+        idealFor: "Equipos nuevos",
+        speakers: "Emprendedores, fundadores de startups, incubadoras",
+      },
+      {
+        id: "nearshoring",
+        title: "Nearshoring Opportunities in Northern Mexico",
+        theme: "Problemas reales que existen hoy en la industria",
+        topics: [
+          "Nearshoring",
+          "Manufactura",
+          "Supply Chain",
+          "Oportunidades regionales",
+        ],
+        idealFor: "Enterprise, Smart Border Cities",
+        speakers: "INDEX Nacional, INDEX Matamoros, COPARMEX",
+      },
+      {
+        id: "logistics",
+        title: "Logistics & Cross-Border Commerce",
+        theme: "Cómo funciona realmente la logística fronteriza",
+        topics: [
+          "Carta Porte",
+          "Aduanas",
+          "Transporte",
+          "Cruces internacionales",
+        ],
+        idealFor: "Enterprise",
+        speakers: "Agencias aduanales, empresas transportistas, forwarders",
+      },
+      {
+        id: "ux",
+        title: "Rapid UI/UX for Hackathons",
+        theme: "Diseñar rápido sin perder calidad",
+        topics: ["Figma", "Wireframes", "MVP UX"],
+        idealFor: "Diseñadores, developers",
+        speakers: "Agencias locales, freelancers senior",
+      },
+      {
+        id: "cloud",
+        title: "Cloud Deployment in Under One Hour",
+        theme: "Cómo desplegar rápido",
+        topics: ["VPS", "Docker", "CI/CD básico"],
+        idealFor: "Todos",
+        speakers: "Empresas de hosting, ingenieros DevOps",
+      },
+      {
+        id: "pitch",
+        title: "Pitching Like a Startup",
+        theme: "Cómo presentar un proyecto",
+        topics: [
+          "Storytelling",
+          "Demo en vivo",
+          "Cómo impresionar a los jueces",
+        ],
+        idealFor: "Todos",
+        speakers: "Emprendedores, inversionistas, aceleradoras",
+      },
+      {
+        id: "security",
+        title: "Cybersecurity for Modern Applications",
+        theme: "Seguridad básica para aplicaciones",
+        topics: ["OWASP", "APIs", "Seguridad de IA"],
+        idealFor: "Track de IA, Enterprise",
+        speakers: "Ingenieros de seguridad, consultores",
+      },
+    ],
+    keynotesLabel: "IDEAS DE KEYNOTES",
+    keynotesSubtitle:
+      "Charlas cortas que nos encantaría que un patrocinador o líder de industria dé — aún no confirmadas.",
+    keynotes: [
+      {
+        title: "Por Qué Importa el Nearshoring",
+        description:
+          "Un líder de la industria explica la oportunidad regional y qué pueden hacer los constructores.",
+      },
+      {
+        title: "Construir Empresas desde la Frontera",
+        description:
+          "Un fundador exitoso de la región comparte lo que se necesita para construir desde Matamoros.",
+      },
+      {
+        title: "El Futuro de la IA en los Negocios",
+        description:
+          "Un experto en IA explica hacia dónde va la industria y qué significa para los jóvenes constructores.",
+      },
+    ],
+    ctaLabel: "¿LISTO PARA ASOCIARTE?",
+    ctaTitle: "Construyamos Juntos",
+    ctaSubtitle:
+      "Cuéntanos qué quieres aportar — efectivo, comida, un taller, o algo más. Resolvemos los detalles juntos.",
+    ctaButton: "SER PATROCINADOR",
+    ctaNote: "Sin compromiso hasta que estés listo · Te contactamos en 48h",
+    back: "← VOLVER",
   },
   legal: {
     back: "← VOLVER",

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useDictionary, useLocale } from "@/components/LocaleProvider";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { PeserosCredit } from "@/components/PeserosCredit";
 import { localizedPath } from "@/lib/i18n";
 import { montserrat, outfit } from "@/lib/theme";
 import { SiteFooter } from "./SiteFooter";
@@ -67,6 +68,9 @@ export function LegalLayout({
           >
             {lastUpdatedLabel} {lastUpdated}
           </p>
+          <div className="mt-6">
+            <PeserosCredit variant="inline" />
+          </div>
           <div
             className="mt-12 space-y-8 text-white/75"
             style={{ fontFamily: outfit }}

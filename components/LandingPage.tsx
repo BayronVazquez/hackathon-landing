@@ -12,6 +12,7 @@ import { PrizesSection } from "@/components/sections/PrizesSection";
 import { HowItWorksSection } from "@/components/sections/HowItWorksSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { CtaSection } from "@/components/sections/CtaSection";
+import { SponsorsSection } from "@/components/sections/SponsorsSection";
 import { SiteNav } from "@/components/SiteNav";
 import { WaitlistCountProvider } from "@/components/WaitlistCountProvider";
 import { SplashScreen } from "@/components/SplashScreen";
@@ -22,7 +23,7 @@ export function LandingPage() {
   const [heroReady, setHeroReady] = useState(false);
   const [splashDone, setSplashDone] = useState(false);
 
-  const handleSplashReady    = useCallback(() => setHeroReady(true), []);
+  const handleSplashReady = useCallback(() => setHeroReady(true), []);
   const handleSplashComplete = useCallback(() => setSplashDone(true), []);
 
   return (
@@ -34,9 +35,13 @@ export function LandingPage() {
         />
       )}
       <SiteNav onRegisterClick={() => setWaitlistOpen(true)} />
-      <AnimatedHero onRegisterClick={() => setWaitlistOpen(true)} ready={heroReady} />
+      <AnimatedHero
+        onRegisterClick={() => setWaitlistOpen(true)}
+        ready={heroReady}
+      />
       <MarqueeTicker />
       <AboutSection />
+      <SponsorsSection onSponsorClick={() => setSponsorOpen(true)} />
       <HighlightsSection />
       <PrizesSection />
       <HowItWorksSection />
@@ -47,10 +52,7 @@ export function LandingPage() {
         open={waitlistOpen}
         onClose={() => setWaitlistOpen(false)}
       />
-      <SponsorModal
-        open={sponsorOpen}
-        onClose={() => setSponsorOpen(false)}
-      />
+      <SponsorModal open={sponsorOpen} onClose={() => setSponsorOpen(false)} />
     </WaitlistCountProvider>
   );
 }
